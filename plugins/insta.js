@@ -9,7 +9,7 @@ Jarvis - Loki-Xer
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-const { System, isPrivate, sendInsta, youtube, yta } = require("../lib/");
+const { System, isPrivate, sendInsta, getIg } = require("../lib/");
 
 System({
   pattern: "insta",
@@ -20,3 +20,11 @@ System({
   await sendInsta(message, match);
 });
 
+System({
+  pattern: 'ig ?(.*)',
+  fromMe: isPublic,
+  desc: 'Search Instagram Profile',
+  type: 'search',
+}, async (message, match) => {
+  await getIg(message, match);
+});
