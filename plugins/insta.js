@@ -22,9 +22,9 @@ System({
 
 System({
   pattern: 'ig ?(.*)',
-  fromMe: isPublic,
-  desc: 'Search Instagram Profile',
-  type: 'search',
+  fromMe: isPrivate,
+  desc: "Search Instagram Profile",
+  type: "search",
 }, async (message, match) => {
   await getIg(message, match);
 });
