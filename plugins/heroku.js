@@ -163,7 +163,7 @@ System({
         availupdate += num + 1 + " ●  " + tiny(commit.message) + "\n";
       });
       return await message.client.sendMessage(message.jid, {
-        text: ${availupdate}\n\n _type *${Config.HANDLERS} update now*_
+        text: `${availupdate}\n\n _type *${Config.HANDLERS} update now*_`
       });
     }
   });
