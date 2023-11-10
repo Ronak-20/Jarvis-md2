@@ -74,7 +74,7 @@ System({
 
 System({
         pattern: "vv", 
-        fromMe: isPrivate,
+        fromMe: true,
         desc: "get view ones message", 
         type: "user",
     }, async (message, match, m) => {
