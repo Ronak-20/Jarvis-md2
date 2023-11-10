@@ -9,12 +9,12 @@ Jarvis - Loki-Xer
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-const { System, isPrivate, SearchPins, sendGitInfo } = require("../lib/");
+const { System, isPrivate, SearchPins, sendGitInfo, getIg } = require("../lib/");
 
 System({
   pattern: "searchpin",
   fromMe: isPrivate,
-  desc: "search pinterest image",
+  desc: "Search pinterest image",
   type: "search",
 }, async (message, match) => {
   await SearchPins(message, match);
@@ -28,4 +28,14 @@ System({
 },
 async (message, match) => {
   await sendGitInfo(message, match);
+});
+
+
+System({
+  pattern: 'ig ?(.*)',
+  fromMe: isPrivate,
+  desc: "Search Instagram Profile",
+  type: "search",
+}, async (message, match) => {
+  await getIg(message, match);
 });
