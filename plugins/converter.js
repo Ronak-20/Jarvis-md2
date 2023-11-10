@@ -9,7 +9,7 @@ Jarvis - Loki-Xer
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-const { System, styletext, listall, tiny, isPrivate, sendAudio, media } = require("../lib/");
+const { System, styletext, listall, tiny, isPrivate, sendAudio, webp2mp4 } = require("../lib/");
 const axios = require("axios");
 
 
