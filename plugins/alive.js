@@ -1,10 +1,4 @@
-const {
-    System,
-    getAlive,
-    setAlive,
-    alive,
-    isPrivate
-} = require('../lib')
+const { System, getAlive, setAlive, alive, isPrivate } = require('../lib')
 
 System({
     pattern: 'alive ?(.*)',
@@ -18,7 +12,7 @@ async (message, match) => {
     return await message.send(msg);
     } else if(match && message.sudo.includes(message.sender)) {
     await setAlive(match);
-    return await message.send('success');
+    return await message.send('_Alive Updated_');
     }
- return await alive(message,msg);
+    return await alive(message,msg);
 });
