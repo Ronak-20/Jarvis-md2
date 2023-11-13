@@ -1,6 +1,6 @@
 {
     "name": "Jarvis",
-    "version": "0.3.0",
+    "version": "0.3.5",
     "description": "A simple WhatsApp Bot Based On WhiskeySockets/Baileys",
     "main": "index.js",
     "directories": {
