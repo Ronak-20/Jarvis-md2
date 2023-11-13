@@ -1,4 +1,10 @@
-const { System, getAlive, setAlive, alive, isPrivate } = require('../lib')
+const {
+    System,
+    getAlive,
+    setAlive,
+    alive,
+    isPrivate
+} = require('../lib')
 
 System({
     pattern: 'alive ?(.*)',
