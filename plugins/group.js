@@ -9,7 +9,7 @@ Jarvis - Loki-Xer
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-const { System, isPrivate } = require("../lib/");
+const { System } = require("../lib/");
 const { isAdmin, parsedJid } = require("../lib");
 const Jimp = require('jimp');
 
@@ -17,7 +17,7 @@ const Jimp = require('jimp');
 
 System({
     pattern: "add$",
-    fromMe: isPrivate,
+    fromMe: true,
     desc: "Adds a person to group",
     type: "group",
   },
@@ -37,7 +37,7 @@ System({
 );
 System({
     pattern: "kick$",
-    fromMe: isPrivate,
+    fromMe: true,
     desc: "kicks a person from group",
     type: "group",
   },
@@ -60,7 +60,7 @@ System({
 
 System({
     pattern: "promote$",
-    fromMe: isPrivate,
+    fromMe: true,
     desc: "promote a member",
     type: "group",
   },
@@ -81,7 +81,7 @@ System({
 
 System({
     pattern: "demote$",
-    fromMe: isPrivate,
+    fromMe: true,
     desc: "demote a member",
     type: "group",
   },
@@ -134,7 +134,7 @@ System({
 
 System({
     pattern: "kickall",
-    fromMe: isPrivate,
+    fromMe: true,
     desc: "Adds a person to group",
     type: "group",
   },
