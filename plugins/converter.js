@@ -20,11 +20,11 @@ System({
   desc: "Sticker to Image",
   type: "converter",
 }, async (message, match, m) => {
-  if (!(message.reply_message.video || message.reply_message.image)) {
+  if (!(message.reply_message.sticker)) {
     return await message.reply("_Reply to a photo_");
   }
     const buff = await message.reply_message.download();
-    await message.send( buff, {} , "image" );
+    await message.send( buff, {} , "sticker" );
 });
 
 System({
