@@ -24,7 +24,7 @@ System({
     return await message.reply("_Reply to a photo_");
   }
     const buff = await message.reply_message.download();
-    await message.send( buff, {} , "sticker" );
+    await message.send( buff, {} , "image" );
 });
 
 System({
