@@ -14,7 +14,7 @@
         "@adiwajshing/keyed-db": "^0.2.4",
         "@ffmpeg-installer/ffmpeg": "^1.1.0",
         "@hapi/boom": "^10.0.1",
-        "@whiskeysockets/baileys": "^6.5.0",
+        "@whiskeysockets/baileys": "^6.3.0",
         "async-g-i-s": "1.0.0",
         "axios": "^0.24.0",
         "pm2": "^5.2.0",
