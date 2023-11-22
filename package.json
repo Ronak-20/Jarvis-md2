@@ -3,14 +3,14 @@
     "version": "0.3.5",
     "description": "A simple WhatsApp Bot Based On WhiskeySockets/Baileys",
     "main": "index.js",
-      "scripts": {
+    "scripts": {
         "start": "pm2 start . --attach --name jarvis",
         "stop": "pm2 stop jarvis"
-       },
+    },
     "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Loki-Xer/Jarvis-md.git"
-  },
+        "type": "git",
+        "url": "git+https://github.com/Loki-Xer/Jarvis-md.git"
+    },
     "dependencies": {
         "@adiwajshing/keyed-db": "^0.2.4",
         "@ffmpeg-installer/ffmpeg": "^1.1.0",
@@ -31,12 +31,11 @@
         "file-type": "^16.5.3",
         "fluent-ffmpeg": "^2.1.2",
         "form-data": "^4.0.0",
-        "fs": "0.0.1-security",
         "fs-extra": "^11.1.1",
         "g-i-s": "^2.1.6",
         "got": "^11.8.2",
         "heroku-client": "^3.1.0",
-        "imgur":"^1.0.2",
+        "imgur": "^1.0.2",
         "jimp": "^0.16.1",
         "jsdom": "^20.0.0",
         "link-preview-js": "^3.0.4",
@@ -59,22 +58,5 @@
         "imgbb-uploader": "^1.4.0",
         "wa-sticker-formatter": "^4.3.2",
         "yargs": "^17.2.1"
-    },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Loki-Ser/Jarvis-md.git"
-    },
-    "keywords": [
-        "bot",
-        "whatsapp"
-    ],
-    "author": "LOKI SER",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/Loki-Zer/Jarvis-md/issues"
-    },
-    "homepage": "https://github.com/Loki-Zer/Jarvis-md#readme"
+    }
 }
