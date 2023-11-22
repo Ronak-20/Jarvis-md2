@@ -3,12 +3,13 @@
     "version": "0.3.5",
     "description": "A simple WhatsApp Bot Based On WhiskeySockets/Baileys",
     "main": "index.js",
-    "directories": {
-        "lib": "lib"
-    },
       "scripts": {
-    "start": "pm2 start . --attach --name jarvis",
-    "stop": "pm2 stop jarvis"
+        "start": "pm2 start . --attach --name jarvis",
+        "stop": "pm2 stop jarvis"
+       },
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Loki-Xer/Jarvis-md.git"
   },
     "dependencies": {
         "@adiwajshing/keyed-db": "^0.2.4",
