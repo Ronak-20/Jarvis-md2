@@ -23,23 +23,6 @@ const git = simpleGit();
 const exec = require("child_process").exec;
 
 
-
-System({
-    pattern: "restart",
-    fromMe: true,
-    type: "heroku",
-    desc: "Restart Dyno",
-    type: "heroku",
-  },
-  async (message) => {
-    await message.send(`_Restarting_`);
-    await heroku.delete(baseURI + "/dynos").catch(async (error) => {
-      await message.send(`*HEROKU : ${error.body.message}*`);
-    });
-  });
-
-
-
 System({
     pattern: "shutdown",
     fromMe: true,
