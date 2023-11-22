@@ -19,6 +19,17 @@ jarvis md is Multi Device whatsapp bot based on X-Asena
 <a href='https://heroku.com/deploy?template=https://github.com/Loki-Xer/Jarvis-md' target="_blank"><img alt='Heroku' src='https://img.shields.io/badge/-Create-black?style=for-the-badge&logo=heroku&logoColor=white'/></a>
 
 
+#### DEPLOY TO RAILWAY
+
+1. If You don't have a account in railway. Create a account in railway.
+    <br>
+<a href='https://railway.app/login' target="_blank"><img alt='railway' src='https://img.shields.io/badge/-Create-black?style=for-the-badge&logo=railway&logoColor=white'/></a>
+
+2. Now Deploy
+    <br>
+<a href='https://railway.app/template/gDYcSS?referralCode=wgSM5y' target="_blank"><img alt='DEPLOY' src='https://img.shields.io/badge/-DEPLOY-black?style=for-the-badge&logo=railway&logoColor=white'/></a>
+
+
 #### THANKS TO
 - [INRL ❤️](https://github.com/inrl-official) <br>
 - [X-Electra](https://github.com/inrl-official) for [X-Asena](https://github.com/X-Electra/X-Asena)
