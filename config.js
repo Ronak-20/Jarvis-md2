@@ -1,6 +1,4 @@
-const {
-  Sequelize
-} = require('sequelize');
+const { Sequelize } = require('sequelize');
 const fs = require('fs');
 
 if (fs.existsSync('config.env')) {
@@ -23,6 +21,7 @@ module.exports = {
   IMGBB_KEY: ["76a050f031972d9f27e329d767dd988f", "deb80cd12ababea1c9b9a8ad6ce3fab2", "78c84c62b32a88e86daf87dd509a657a"],
   SESSION_ID: process.env.SESSION_ID || '',
   LANG: process.env.LANG || 'EN',
+  AUTO_STATUS_VIEWS: process.env.AUTO_STATUS_VIEWS || 'false',
   HANDLERS: process.env.HANDLER === 'false' ? '^' : process.env.HANDLER === 'null' ? '^' : process.env.HANDLER,
   RMBG_KEY: process.env.RMBG_KEY || false,
   BRANCH: 'main',
