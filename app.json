@@ -19,6 +19,11 @@
             "required": true,
             "value":"ʟᴏᴋɪ-xᴇʀ;ᴊᴀʀᴠɪꜱ;https://i.imgur.com/VgxJeCm.jpeg"
         },
+        "AUTO_STATUS_VIEWS": {
+            "description": "auto status views",
+            "required": true,
+            "value":"true"
+        },
         "MEDIA_DATA": {
             "description": "media data that uses in list",
             "required": true,
