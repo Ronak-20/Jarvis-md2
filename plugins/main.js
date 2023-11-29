@@ -40,7 +40,7 @@ System({
         type: "user",
     }, async (message) => {
     const time = await runtime()
-    await message.send(`_runtime ${time}_`)
+    await message.send(`_*Runtime ${time}*_`)
 });
 
 System({
