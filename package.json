@@ -38,6 +38,7 @@
         "jsdom": "^20.0.0",
         "link-preview-js": "^3.0.4",
         "node-webpmux": "^3.1.7",
+        "node-fetch": "^2.0.0",
         "pastebin-js": "^1.0.6",
         "pg": "^8.7.3",
         "pino": "^8.14.1",
