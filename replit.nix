@@ -4,6 +4,7 @@
     pkgs.bashInteractive
     pkgs.nodePackages.bash-language-server
     pkgs.ffmpeg
+    pkgs.libwebp
     pkgs.nodePackages.pm2
   ];
 }
