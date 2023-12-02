@@ -9,7 +9,7 @@ if (fs.existsSync('config.env')) {
 
 const toBool = (x) => x === 'true';
 
-const DATABASE_URL = process.env.DATABASE_URL === undefined ? "./database.db" : process.env.DATABASE_URL
+const DATABASE_URL = process.env.DATABASE_URL === undefined ? "./lib/assets/database.db" : process.env.DATABASE_URL
 
 module.exports = {
   ANTILINK: toBool(process.env.ANTI_LINK) || false,
@@ -22,7 +22,7 @@ module.exports = {
   SESSION_ID: process.env.SESSION_ID || '',
   LANG: process.env.LANG || 'EN',
   AUTO_STATUS_VIEWS: process.env.AUTO_STATUS_VIEWS || 'false',
-  HANDLERS: process.env.HANDLER === 'false' ? '^' : process.env.HANDLER === 'null' ? '^' : process.env.HANDLER,
+  HANDLERS: process.env.HANDLER  || 'null',
   RMBG_KEY: process.env.RMBG_KEY || false,
   BRANCH: 'main',
   STICKER_PACKNAME: process.env.STICKER_PACKNAME || 'ᴊᴀʀᴠɪꜱ;ᴡᴀʙᴏᴛ',
@@ -35,5 +35,5 @@ module.exports = {
   HEROKU_API_KEY: process.env.HEROKU_API_KEY || '',
   BOT_INFO: process.env.BOT_INFO || 'ᴊᴀʀᴠɪꜱ;ʟᴏᴋɪ-xᴇʀ;https://i.imgur.com/VIpl3q5.mp4',
   WORK_TYPE: process.env.WORK_TYPE || '',
-  DATABASE: DATABASE_URL === "./database.db" ? new Sequelize({ dialect: "sqlite", storage: DATABASE_URL, logging: false }) : new Sequelize(DATABASE_URL, {dialect: "postgres", ssl: true, protocol: "postgres", dialectOptions: { native: true, ssl: { require: true, rejectUnauthorized: false },}, logging: false }),
+  DATABASE: DATABASE_URL === "./lib/assets/database.db" ? new Sequelize({ dialect: "sqlite", storage: DATABASE_URL, logging: false }) : new Sequelize(DATABASE_URL, {dialect: "postgres", ssl: true, protocol: "postgres", dialectOptions: { native: true, ssl: { require: true, rejectUnauthorized: false },}, logging: false }),
 };
