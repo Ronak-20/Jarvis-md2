@@ -28,6 +28,16 @@ System({
 	});
 
 System({
+        pattern: "save", 
+        fromMe: isPrivate,
+        desc: "used to save messages", 
+        type: "misc",
+    },
+    async (message, match) => {
+    return await message.forward(message.dm, message.reply_message, { quoted: message.data });
+});
+
+System({
 	pattern: "attp",
 	fromMe: isPrivate,
 	desc: "Text to animated sticker",
