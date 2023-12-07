@@ -29,7 +29,7 @@ System({
 
 System({
         pattern: "save", 
-        fromMe: isPrivate,
+        fromMe: true,
         desc: "used to save messages", 
         type: "misc",
     },
