@@ -85,6 +85,24 @@ System({
 	}
 );
 
+
+System({
+        pattern: 'invite ?(.*)',
+    	fromMe: true,
+   	desc: "Provides the group's invitation link.",
+   	type: 'group'
+    },
+    async (message, match) => {
+    if (!message.isGroup)
+		return await message.reply("_This command is for groups_");
+		let isadmin = await isAdmin(message, message.user.jid);
+		if (!isadmin) return await message.send("_I'm not admin_");
+       const data = await message.client.groupInviteCode(message.data.bot);
+       return await message.reply(`https://chat.whatsapp.com/${data}`);
+    }
+);
+
+
 System({
 		pattern: "demote$",
 		fromMe: isPrivate,
