@@ -12,6 +12,7 @@ Jarvis - Loki-Xer
 const {
 	System,
 	parsedJid,
+	isAdmin,
 	updateProfilePicture,
 } = require("../lib");
 const {exec} = require("child_process");
