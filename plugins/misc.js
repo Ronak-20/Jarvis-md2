@@ -74,20 +74,21 @@ System({
 
 
 System({
-	pattern: "bitly",
-	fromMe: isPrivate,
-	desc: "To get URL short",
-	type: "misc",
+    pattern: "bitly",
+    fromMe: isPrivate,
+    desc: "To get URL short",
+    type: "misc",
 }, async (message, match) => {
-    try { let match = match || message.reply_message.text;
-    if (!match) return await message.reply("_Reply to a url or enter a url_");    
-    if (!isUrl(match)) return await message.reply("_Not a url_"); 
+    try { match = match || message.reply_message.text;
+    if (!match) return awaity message.reply("_Reply to a URL or enter a URL_");
+    if (!isUrl(match)) return await message.reply("_Not a valid URL_");
     let short = await Bitly(match);
-    return await message.reply(short.link); 
-    } catch (error) { console.error("An error occurred:", error);
-    return await message.reply("_An error occurred while shortening the URL._");}
+    return await message.reply(short.link);
+    } catch (error) {
+    console.error("An error occurred:", error);
+    return await message.reply("_An error occurred while shortening the URL._");
+    }
 });
-
 
 System({
 	pattern: 'whois ?(.*)',
