@@ -13,6 +13,7 @@ const fs = require('fs');
 const ff = require('fluent-ffmpeg');
 const {
 	tiny,
+	toPTT,
 	System,
 	styletext,
 	listall,
@@ -31,12 +32,11 @@ System({
 	desc: "Sticker to Image",
 	type: "converter",
 }, async (message, match, m) => {
-	if (!(message.reply_message.sticker)) {
-	return await message.reply("_Reply to a photo_");
-	}
-	var buff = await message.reply_message.download();
-        var buffer = await webp2png(buff);
-	return await message.send(buffer, {}, "photo");
+	if (!message.reply_message.sticker) return await message.reply("_Reply to a sticker_");
+	if (message.reply_message.stickerMessage.isAnimated) return await message.reply("_reply to a non animated sticker message_");
+	let buff = await message.reply_message.download();
+	let buffer = await webp2png(buff);
+	return await message.send(buffer, {}, "image");
 });
 
 
@@ -51,14 +51,27 @@ System({
 
 
 System({
+	pattern: "wawe",
+	fromMe: isPrivate,
+	desc: "audio into wawe",
+	type: "converter",
+}, async (message, match, m) => {
+	if (!message.reply_message.audio) return await message.reply("_Reply to a audio_");
+	let buff = await message.reply_message.download();
+        let media = await toPTT(buff);
+        return await message.send(media, { mimetype: 'audio/mpeg', ptt: true, quoted: message.data }, "audio");
+});
+
+
+
+System({
 	pattern: "mp4",
 	fromMe: isPrivate,
 	desc: "Changes sticker to Video",
 	type: "converter",
 }, async (message, match, m) => {
-	if (!(message.reply_message.sticker)) {
-	return await message.reply("_Reply to sticker_");
-	}
+	if (!message.reply_message.sticker) return await message.reply("_Reply to a sticker_");
+	if (!message.reply_message.stickerMessage.isAnimated) return await message.reply("_reply to a animated sticker message_");
 	let buff = await message.reply_message.download();
 	let buffer = await webp2mp4(buff);
 	return await message.send(buffer, {}, "video");
@@ -71,9 +84,8 @@ System({
 	desc: "Changes sticker to Gif",
 	type: "converter",
 },async (message, match, m) => {
-	if (!(message.reply_message.sticker)) {
-	return await message.reply("_Reply to sticker_");
-	}
+	if (!message.reply_message.sticker) return await message.reply("_Reply to a sticker_");
+	if (!message.reply_message.stickerMessage.isAnimated) return await message.reply("_reply to a animated sticker message_");
 	const buff = await message.reply_message.download();
 	const buffer = await webp2mp4(buff);
 	return await message.send(buffer, { gifPlayback: true }, "video");
