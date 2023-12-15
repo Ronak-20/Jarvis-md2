@@ -72,15 +72,15 @@ System({
 	await message.reply("An error occurred while fetching the API data.");}
 });
 
-
 System({
     pattern: "bitly",
     fromMe: isPrivate,
     desc: "To get URL short",
     type: "misc",
 }, async (message, match) => {
-    try { match = match || message.reply_message.text;
-    if (!match) return awaity message.reply("_Reply to a URL or enter a URL_");
+    try {
+    match = match || message.reply_message.text;
+    if (!match) return await message.reply("_Reply to a URL or enter a URL_");
     if (!isUrl(match)) return await message.reply("_Not a valid URL_");
     let short = await Bitly(match);
     return await message.reply(short.link);
