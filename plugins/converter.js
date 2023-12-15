@@ -12,13 +12,14 @@ Jarvis - Loki-Xer
 const fs = require('fs');
 const ff = require('fluent-ffmpeg');
 const {
+	tiny,
 	System,
 	styletext,
 	listall,
-	tiny,
 	isPrivate,
 	sendAudio,
 	webp2mp4,
+	webp2png,
 	getBuffer,
 	extractUrlFromMessage
 } = require("../lib/");
@@ -31,11 +32,13 @@ System({
 	type: "converter",
 }, async (message, match, m) => {
 	if (!(message.reply_message.sticker)) {
-		return await message.reply("_Reply to a photo_");
+	return await message.reply("_Reply to a photo_");
 	}
-	const buff = await message.reply_message.download();
-	await message.send(buff, {}, "image");
+	var buff = await message.reply_message.download();
+        var buffer = await webp2png(buff);
+	return await message.send(buffer, {}, "photo");
 });
+
 
 System({
 	pattern: "mp3",
@@ -48,56 +51,51 @@ System({
 
 
 System({
-		pattern: "mp4",
-		fromMe: isPrivate,
-		desc: "Changes sticker to Video",
-		type: "converter",
-	},
-	async (message, match, m) => {
-		if (!(message.reply_message.sticker)) {
-			return await message.reply("_Reply to sticker_");
-		}
-		let buff = await message.reply_message.download();
-		let buffer = await webp2mp4(buff);
-		return await message.send(buffer, {}, "video");
-	});
+	pattern: "mp4",
+	fromMe: isPrivate,
+	desc: "Changes sticker to Video",
+	type: "converter",
+}, async (message, match, m) => {
+	if (!(message.reply_message.sticker)) {
+	return await message.reply("_Reply to sticker_");
+	}
+	let buff = await message.reply_message.download();
+	let buffer = await webp2mp4(buff);
+	return await message.send(buffer, {}, "video");
+});
+
 
 System({
-		pattern: "gif",
-		fromMe: isPrivate,
-		desc: "Changes sticker to Gif",
-		type: "converter",
-	},
-	async (message, match, m) => {
-		if (!(message.reply_message.sticker)) {
-			return await message.reply("_Reply to sticker_");
-		}
-		let buff = await message.reply_message.download();
-		let buffer = await webp2mp4(buff);
-		return await message.send(buffer, {
-			gifPlayback: true
-		}, "video");
-	});
+	pattern: "gif",
+	fromMe: isPrivate,
+	desc: "Changes sticker to Gif",
+	type: "converter",
+},async (message, match, m) => {
+	if (!(message.reply_message.sticker)) {
+	return await message.reply("_Reply to sticker_");
+	}
+	const buff = await message.reply_message.download();
+	const buffer = await webp2mp4(buff);
+	return await message.send(buffer, { gifPlayback: true }, "video");
+});
+
 
 System({
-		pattern: "fancy",
-		fromMe: isPrivate,
-		desc: "converts text to fancy text",
-		type: "converter",
-	},
-	async (message, match) => {
-		if (!message.reply_message || !message.reply_message.text || !match || isNaN(match)) {
-			let text = tiny(
-				`Fancy text generator\n\nReply to a message\nExample: .fancy 32\n\n`
-			);
-			listall("Fancy").forEach((txt, num) => {
-				text += `${(num += 1)} ${txt}\n`;
-			});
-			return await message.reply(text);
-		} else {
-			message.reply(styletext(message.reply_message.text, parseInt(match)));
-		}
+	pattern: "fancy",
+	fromMe: isPrivate,
+	desc: "converts text to fancy text",
+	type: "converter",
+}, async (message, match) => {
+	if (!message.reply_message || !message.reply_message.text || !match || isNaN(match)) {
+	let text = tiny(`Fancy text generator\n\nReply to a message\nExample: .fancy 32\n\n`);
+	listall("Fancy").forEach((txt, num) => {
+	text += `${(num += 1)} ${txt}\n`;
 	});
+	return await message.reply(text);
+	} else {
+	message.reply(styletext(message.reply_message.text, parseInt(match)));
+	}
+});
 
 
 System({
@@ -107,29 +105,22 @@ System({
 	type: "converter"
 }, async (message) => {
 	try {
-		const ffmpeg = ff();
-
-		if (!message.reply_message.audio) return await message.send("_reply to audio message_");
-
-		const file = './lib/system/media/black.jpg';
-
-		const audioFile = './lib/system/media/audio.mp3';
-		fs.writeFileSync(audioFile, await message.reply_message.download());
-
-		ffmpeg.input(file);
-		ffmpeg.input(audioFile);
-		ffmpeg.output('./lib/system/media/videoMixed.mp4');
-
-		ffmpeg.on('end', async () => {
-			await message.send(fs.readFileSync('./lib/system/media/videoMixed.mp4'), {}, 'video');
-		});
-
-		ffmpeg.on('error', async (err) => {
-			await message.reply(err);
-		});
-
-		ffmpeg.run();
+	const ffmpeg = ff();
+        if (!message.reply_message.audio) return await message.send("_reply to audio message_");
+        const file = './lib/system/media/black.jpg';
+        const audioFile = './lib/system/media/audio.mp3';
+	fs.writeFileSync(audioFile, await message.reply_message.download());
+        ffmpeg.input(file);
+	ffmpeg.input(audioFile);
+	ffmpeg.output('./lib/system/media/videoMixed.mp4');
+        ffmpeg.on('end', async () => {
+	await message.send(fs.readFileSync('./lib/system/media/videoMixed.mp4'), {}, 'video');
+	});
+        ffmpeg.on('error', async (err) => {
+	await message.reply(err);
+	});
+        ffmpeg.run();
 	} catch (e) {
-		return message.send(e);
+	return message.send(e);
 	}
 });
