@@ -10,6 +10,7 @@ Jarvis - Loki-Xer
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 const {
+	tiny,
 	isUrl,
         System,
 	GetYta,
@@ -35,11 +36,11 @@ System({
       } else {
       const matchUrl = extractUrlFromMessage(match);
       if (isUrl(matchUrl)) {
-      return await message.send(await GetYtv(matchUrl), {}, "video");
+      return await message.send(await GetYtv(matchUrl), { caption: (tiny("*made with 🤍*")), quoted: message.data }, "video");
       } else {
       const data = await Ytsearch(match);
       const link = data.url;
-      return await message.send(await GetYtv(link), {}, "video");
+      return await message.send(await GetYtv(link), { caption: (tiny("*made with 🤍*")), quoted: message.data }, "video");
       } } } catch (error) {
       console.error("An error occurred:", error); }
 });
@@ -57,11 +58,11 @@ System({
       } else {
       const matchUrl = extractUrlFromMessage(match);
       if (isUrl(matchUrl)) {
-      return await message.send(await GetYtv(matchUrl), {}, "video");
+      return await message.send(await GetYtv(matchUrl), { caption: (tiny("*made with 🤍*")), quoted: message.data }, "video");
       } else {
       const data = await Ytsearch(match);
       const link = data.url;
-      return await message.send(await GetYtv(link), {}, "video");
+      return await message.send(await GetYtv(link), { caption: (tiny("*made with 🤍*")), quoted: message.data }, "video");
       } } } catch (error) {
       console.error("An error occurred:", error); }
 });
@@ -79,7 +80,7 @@ System({
       if (!match) {
       return await message.reply("_Give a YouTube video *Url* or *Query*_");
       } else {
-      const matchurl = extractUrlFromMessage(match);
+      const matchUrl = extractUrlFromMessage(match);
       if (isUrl(matchUrl)) {
       const audioBuffer = await GetYta(matchurl);
       const media = await toAudio(audioBuffer, 'mp4');
@@ -111,9 +112,8 @@ System({
       if (!match) {
       return await message.reply("_Give a YouTube video *Url* or *Query*_");
       } else {
-      const matchurl = extractUrlFromMessage(match);
+      const matchUrl = extractUrlFromMessage(match);
       if (isUrl(matchUrl)) {
-      const name = await Ytsearch(match);
       const download = await m.send(`_downloading ${name.title}_`);
       const audioBuffer = await GetYta(matchurl);
       const media = await toAudio(audioBuffer, 'mp4');
@@ -121,7 +121,6 @@ System({
       const img = await getBuffer(data[2]);
       const aud = await AddMp3Meta(media, img, { title: data[0], body: data[1] });
       await message.client.sendMessage(message.from, { audio: aud, mimetype: 'audio/mpeg' });
-      await download.edit(`_Successfully downloaded ${name.title}_`)
       } else {
       const url = await Ytsearch(match);
       const link = url.url;
