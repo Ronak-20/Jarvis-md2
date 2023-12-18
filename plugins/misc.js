@@ -34,7 +34,7 @@ System({
         desc: "used to save messages", 
         type: "misc",
     },
-    async (message, match) => {
+async (message, match) => {
     return await message.forward(message.dm, message.reply_message, { quoted: message.data });
 });
 
