@@ -35,9 +35,8 @@ System(
           );
         } else {
           const data = await Ytsearch(match);
-          const link = data.url;
           return await message.send(
-            await GetYtv(link),
+            await GetYtv(data.url),
             { caption: tiny('*made with 🤍*'), quoted: message.data },
             'video'
           );
@@ -71,9 +70,8 @@ System(
           );
         } else {
           const data = await Ytsearch(match);
-          const link = data.url;
           return await message.send(
-            await GetYtv(link),
+            await GetYtv(data.url),
             { caption: tiny('*made with 🤍*'), quoted: message.data },
             'video'
           );
@@ -100,11 +98,8 @@ System(
       } else {
         const matchUrl = extractUrlFromMessage(match);
         if (isUrl(matchUrl)) {
-          const audioBuffer = await GetYta(matchUrl);
-          const media = await toAudio(audioBuffer, 'mp3');
           const data = config.AUDIO_DATA.split(';');
-          const img = await getBuffer(data[2]);
-          const aud = await AddMp3Meta(media, img, {
+          const aud = await AddMp3Meta(await toAudio(await GetYta(matchUrl), 'mp3'), await getBuffer(data[2]), {
             title: data[0],
             body: data[1],
           });
@@ -114,13 +109,13 @@ System(
           });
         } else {
           const link = await Ytsearch(match);
-          const audioBuffer = await GetYta(link.url);
-          const media = await toAudio(audioBuffer, 'mp3');
           const data = config.AUDIO_DATA.split(';');
-          const img = await getBuffer(data[2]);
-          const aud = await AddMp3Meta(media, img, {
-            title: data[0],
-            body: data[1],
+          const aud = await AddMp3Meta(
+          await toAudio(
+          await GetYta(link.url), 'mp3'), 
+          await getBuffer(data[2]), {
+          title: data[0],
+          body: data[1],
           });
           await message.client.sendMessage(message.from, {
             audio: aud,
@@ -149,35 +144,28 @@ System(
       } else {
         const matchUrl = extractUrlFromMessage(match);
         if (isUrl(matchUrl)) {
-          const download = await m.send(`_downloading ${name.title}_`);
-          const audioBuffer = await GetYta(matchUrl);
-          const media = await toAudio(audioBuffer, 'mp3');
           const data = config.AUDIO_DATA.split(';');
-          const img = await getBuffer(data[2]);
-          const aud = await AddMp3Meta(media, img, {
+          const aud = await AddMp3Meta(await toAudio(await GetYta(matchUrl), 'mp3'), await getBuffer(data[2]), {
             title: data[0],
             body: data[1],
           });
-          await message.client.sendMessage(message.from, {
+          await message.client.sendMessage(message.chat, {
             audio: aud,
             mimetype: 'audio/mpeg',
           });
         } else {
           const link = await Ytsearch(match);
-          const download = await m.send(`_downloading ${url.title}_`);
-          const audioBuffer = await GetYta(link.url);
-          const media = await toAudio(audioBuffer, 'mp3');
+          const download = await message.send(`_downloading ${link.title}_`);
           const data = config.AUDIO_DATA.split(';');
-          const img = await getBuffer(data[2]);
-          const aud = await AddMp3Meta(media, img, {
+          const aud = await AddMp3Meta(await toAudio(await GetYta(link.url), 'mp3'), await getBuffer(data[2]), {
             title: data[0],
             body: data[1],
           });
-          await message.client.sendMessage(message.from, {
+          await message.client.sendMessage(message.chat, {
             audio: aud,
             mimetype: 'audio/mpeg',
           });
-          await download.edit(`_Successfully downloaded ${url.title}_`);
+          await download.edit(`_Successfully downloaded ${link.title}_`);
         }
       }
     } catch (error) {
