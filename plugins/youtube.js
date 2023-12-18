@@ -110,12 +110,9 @@ System(
         } else {
           const link = await Ytsearch(match);
           const data = config.AUDIO_DATA.split(';');
-          const aud = await AddMp3Meta(
-          await toAudio(
-          await GetYta(link.url), 'mp3'), 
-          await getBuffer(data[2]), {
-          title: data[0],
-          body: data[1],
+          const aud = await AddMp3Meta(await toAudio(await GetYta(link.url), 'mp3'), await getBuffer(data[2]), {
+            title: data[0],
+            body: data[1],
           });
           await message.client.sendMessage(message.from, {
             audio: aud,
@@ -155,7 +152,7 @@ System(
           });
         } else {
           const link = await Ytsearch(match);
-          const download = await message.send(`_downloading ${link.title}_`);
+          const download = await message.send(`_*downloading ${link.title}*_`);
           const data = config.AUDIO_DATA.split(';');
           const aud = await AddMp3Meta(await toAudio(await GetYta(link.url), 'mp3'), await getBuffer(data[2]), {
             title: data[0],
@@ -165,7 +162,7 @@ System(
             audio: aud,
             mimetype: 'audio/mpeg',
           });
-          await download.edit(`_Successfully downloaded ${link.title}_`);
+          await download.edit(`_*Successfully downloaded ${link.title}*_`);
         }
       }
     } catch (error) {
