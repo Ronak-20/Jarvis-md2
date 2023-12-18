@@ -4,6 +4,7 @@ const {
   System,
   GetYta,
   GetYtv,
+  toAudio,
   Ytsearch,
   getBuffer,
   isPrivate,
@@ -100,7 +101,7 @@ System(
         const matchUrl = extractUrlFromMessage(match);
         if (isUrl(matchUrl)) {
           const audioBuffer = await GetYta(matchUrl);
-          const media = await toAudio(audioBuffer, 'mp4');
+          const media = await toAudio(audioBuffer, 'mp3');
           const data = config.AUDIO_DATA.split(';');
           const img = await getBuffer(data[2]);
           const aud = await AddMp3Meta(media, img, {
@@ -112,10 +113,9 @@ System(
             mimetype: 'audio/mpeg',
           });
         } else {
-          const url = await Ytsearch(match);
-          const link = url.url;
-          const audioBuffer = await GetYta(link);
-          const media = await toAudio(audioBuffer, 'mp4');
+          const link = await Ytsearch(match);
+          const audioBuffer = await GetYta(link.url);
+          const media = await toAudio(audioBuffer, 'mp3');
           const data = config.AUDIO_DATA.split(';');
           const img = await getBuffer(data[2]);
           const aud = await AddMp3Meta(media, img, {
@@ -151,7 +151,7 @@ System(
         if (isUrl(matchUrl)) {
           const download = await m.send(`_downloading ${name.title}_`);
           const audioBuffer = await GetYta(matchUrl);
-          const media = await toAudio(audioBuffer, 'mp4');
+          const media = await toAudio(audioBuffer, 'mp3');
           const data = config.AUDIO_DATA.split(';');
           const img = await getBuffer(data[2]);
           const aud = await AddMp3Meta(media, img, {
@@ -163,11 +163,10 @@ System(
             mimetype: 'audio/mpeg',
           });
         } else {
-          const url = await Ytsearch(match);
-          const link = url.url;
+          const link = await Ytsearch(match);
           const download = await m.send(`_downloading ${url.title}_`);
-          const audioBuffer = await GetYta(link);
-          const media = await toAudio(audioBuffer, 'mp4');
+          const audioBuffer = await GetYta(link.url);
+          const media = await toAudio(audioBuffer, 'mp3');
           const data = config.AUDIO_DATA.split(';');
           const img = await getBuffer(data[2]);
           const aud = await AddMp3Meta(media, img, {
