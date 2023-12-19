@@ -14,7 +14,7 @@ const DATABASE_URL = process.env.DATABASE_URL === undefined ? "./database.db" : 
 module.exports = {
   ANTILINK: toBool(process.env.ANTI_LINK) || false,
   AUDIO_DATA: process.env.AUDIO_DATA || 'ʟᴏᴋɪ-xᴇʀ;ᴊᴀʀᴠɪꜱ;https://i.imgur.com/ep3UbBP.jpg',
-  WARN_COUNT: process.env.WARN_COUNT || '3',
+  WARN_COUNT: toBool(process.env.WARN_COUNT || '3'),
   LOGS: toBool(process.env.LOGS) || true,
   ANTILINK_ACTION: process.env.ANTI_LINK || 'kick',
   ALIVE_DATA : process.env.ALIVE_DATA || "_*Hy &sender i am alive now*_\n\n_PLATFORM: &platform_\n_RUNTIME : &runtime_\n\n_. type alive to update your alive message_",
@@ -26,7 +26,7 @@ module.exports = {
   RMBG_KEY: process.env.RMBG_KEY || false,
   BRANCH: 'main',
   STICKER_PACKNAME: process.env.STICKER_PACKNAME || 'ᴊᴀʀᴠɪꜱ;ᴡᴀʙᴏᴛ',
-  AUTO_STATUS_VIEWS: process.env.AUTO_STATUS_VIEWS || 'false',
+  AUTO_STATUS_VIEWS: toBool(process.env.AUTO_STATUS_VIEWS || 'false'),
   WELCOME_MSG: process.env.WELCOME_MSG || 'Hi @user Welcome to @gname',
   GOODBYE_MSG: process.env.GOODBYE_MSG || 'Hi @user It was Nice Seeing you',
   AUTHOR: process.env.AUTHOR || 'ʟᴏᴋɪ-xᴇʀ',
