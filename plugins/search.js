@@ -30,12 +30,12 @@ System({
 }, async (message, match) => {
   try {
     if (!match) {
-      return await message.reply('_Please provide an Instagram *username*_\n *Example: .ig sedboy.am*');
+      return await message.reply('_Please provide an Instagram *username*_ *Example: .ig sedboy.am*');
     } else {
       if (isUrl(match)) {
-        return await message.reply("_Please provide an Instagram *username*_\n *Example: .ig sedboy.am*");
+        return await message.reply("_Please provide an Instagram *username*_ *Example: .ig sedboy.am*");
       } else {
-        const { result } = await getIg(match);
+        const { result } = await getIg(`${encodeURIComponent(match)}`);
         const { avatar, username, name, description, posts, followers, following } = result;
         await message.client.sendMessage(message.chat, {
           image: { url: avatar },
