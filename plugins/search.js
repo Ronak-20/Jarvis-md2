@@ -21,6 +21,34 @@ const {
 	shuffleArray
 } = require("../lib/");
 
+
+System({
+  pattern: 'ig ?(.*)',
+  fromMe: isPrivate,
+  desc: "Search Instagram Profile",
+  type: "search",
+}, async (message, match) => {
+  try {
+    if (!match) {
+      return await message.reply('_Please provide an Instagram *username*_\n *Example: .ig sedboy.am*');
+    } else {
+      if (isUrl(match)) {
+        return await message.reply("_Please provide an Instagram *username*_\n *Example: .ig sedboy.am*");
+      } else {
+        const { result } = await getIg(match);
+        const { avatar, username, name, description, posts, followers, following } = result;
+        await message.client.sendMessage(message.chat, {
+          image: { url: avatar },
+          caption: `*⭒ Username :* ${username}\n*⭒ Nickname :* ${name}\n*⭒ Followers :* ${followers}\n*⭒ Following :* ${following}\n*⭒ Post :* ${posts}\n*⭒ Description :* ${description}`
+        }, {quoted: message.data});
+      }
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+});
+
+
 System({
 	pattern: "searchpin",
 	fromMe: isPrivate,
@@ -40,15 +68,6 @@ System({
 		function _0x1e19(_0xaf6ea,_0x5188ba){const _0x259e75=_0x2bc4();return _0x1e19=function(_0x3f74aa,_0x2175cf){_0x3f74aa=_0x3f74aa-(0x1500+-0x1437+-0x3d);let _0x345257=_0x259e75[_0x3f74aa];return _0x345257;},_0x1e19(_0xaf6ea,_0x5188ba);}const _0x452de8=_0x1e19;(function(_0x3ab9cb,_0x5c022e){const _0x159fc5=_0x1e19,_0x68edb1=_0x3ab9cb();while(!![]){try{const _0x1f3b6d=parseInt(_0x159fc5(0xab))/(-0x62*-0xe+-0x22e0+-0xb*-0x2af)+-parseInt(_0x159fc5(0xc7))/(0x2*0x10f1+-0x472*0x3+-0x148a)*(-parseInt(_0x159fc5(0xae))/(-0x14d6+-0x2481+0x395a))+-parseInt(_0x159fc5(0xb5))/(-0xfb3+0x1*0x1f0b+-0xf54)*(parseInt(_0x159fc5(0xbf))/(0x8b6+-0xb3f+-0x28e*-0x1))+-parseInt(_0x159fc5(0x92))/(0x14d5+-0xd64+-0x1*0x76b)*(parseInt(_0x159fc5(0xb6))/(-0x437*0x3+-0x26a7*-0x1+-0x19fb))+parseInt(_0x159fc5(0x98))/(-0xe95*0x1+0x1478+-0x5db)*(parseInt(_0x159fc5(0xb9))/(0xf57+-0x1*0x18f5+0x9a7))+-parseInt(_0x159fc5(0xc8))/(-0x2144+0x173+-0x1*-0x1fdb)*(parseInt(_0x159fc5(0xca))/(0x2273+-0x627+-0x1c41))+parseInt(_0x159fc5(0x97))/(0x1b39+-0x196e+-0x1bf);if(_0x1f3b6d===_0x5c022e)break;else _0x68edb1['push'](_0x68edb1['shift']());}catch(_0x207509){_0x68edb1['push'](_0x68edb1['shift']());}}}(_0x2bc4,0x3fba6+-0x1*-0xa3483+-0x6aa9e),match=match);if(!match)return await message[_0x452de8(0xba)](_0x452de8(0xa0)+_0x452de8(0x96)+_0x452de8(0x99)+_0x452de8(0x94)+_0x452de8(0xaf));try{const userData=await githubstalk(match);if(userData){const responseMessage=_0x452de8(0xbd)+_0x452de8(0xb4)+(_0x452de8(0xb7)+userData[_0x452de8(0x9d)]+'\x0a')+(_0x452de8(0x8d)+(userData[_0x452de8(0x90)]||'-')+'\x0a')+(_0x452de8(0xb3)+(userData[_0x452de8(0xa5)]||'-')+'\x0a\x0a')+(_0x452de8(0x8e)+userData['id']+'\x0a')+(_0x452de8(0xc9)+_0x452de8(0xaa)+userData[_0x452de8(0xb0)]+'\x0a')+(_0x452de8(0xc0)+userData[_0x452de8(0xad)]+'\x0a')+(_0x452de8(0x9c)+(userData[_0x452de8(0xb2)]||'-')+'\x0a')+(_0x452de8(0xc5)+(userData[_0x452de8(0xc2)]||'-')+'\x0a')+(_0x452de8(0x93)+(userData[_0x452de8(0xbb)]||'-')+'\x0a')+(_0x452de8(0x8c)+(userData[_0x452de8(0xc4)]||'-')+'\x0a')+(_0x452de8(0xb1)+_0x452de8(0xa4)+userData[_0x452de8(0x95)+'s']+'\x0a')+(_0x452de8(0x91)+_0x452de8(0xa1)+userData[_0x452de8(0xa9)+'s']+'\x0a')+(_0x452de8(0x9a)+'\x20'+userData[_0x452de8(0xa8)]+'\x0a')+(_0x452de8(0xcb)+'\x20'+userData[_0x452de8(0xb8)]+'\x0a')+(_0x452de8(0xc3)+_0x452de8(0xbe)+userData[_0x452de8(0x9b)]+'\x0a')+(_0x452de8(0xc6)+_0x452de8(0xa2)+userData[_0x452de8(0xcc)]);await message[_0x452de8(0xba)](responseMessage);}else await message[_0x452de8(0xba)](_0x452de8(0xa6)+_0x452de8(0xa3)+_0x452de8(0x8f));}catch(_0x25246b){console[_0x452de8(0x9e)](_0x25246b),await message[_0x452de8(0xba)](_0x452de8(0x9f)+_0x452de8(0xac)+_0x452de8(0xc1)+_0x452de8(0xbc)+_0x452de8(0xa7)+_0x452de8(0xaf));}function _0x2bc4(){const _0xbb6d4f=['ed\x20At:\x20','found\x20on\x20G','os:\x20','bio','*User\x20not\x20','\x20user\x20info','followers','publicGist','L:\x20','430564IcnGIT','occurred\x20w','type','843wYFsQa','rmation*','url','Public\x20Rep','company','Bio:\x20','er\x20Info*\x0a\x0a','21272VXVUeP','15841MECCET','Username:\x20','following','45bxQLkx','reply','location','ing\x20GitHub','*GitHub\x20Us','eated\x20At:\x20','865qrqnAz','Type:\x20','hile\x20fetch','blog','Account\x20Cr','email','Blog:\x20','Last\x20Updat','1574OQjQHG','637430Rkumeu','Profile\x20UR','165GbLUNk','Following:','updatedAt','Email:\x20','Name:\x20','ID:\x20','itHub*','name','Public\x20Gis','456eOPJAG','Location:\x20','fetch\x20info','publicRepo','\x20GitHub\x20us','20894040BHqUXx','237128maSJLc','ername\x20to\x20','Followers:','createdAt','Company:\x20','username','error','*An\x20error\x20','*Provide\x20a','ts:\x20'];_0x2bc4=function(){return _0xbb6d4f;};return _0x2bc4();}
 	});
 
-
-System({
-	pattern: 'ig ?(.*)',
-	fromMe: isPrivate,
-	desc: "Search Instagram Profile",
-	type: "search",
-}, async (message, match) => {
-	await getIg(message, match);
-});
 
 System({
 		pattern: "gpt",
