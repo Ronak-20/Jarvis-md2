@@ -18,15 +18,16 @@ const {
 	IronMan,
 	axios,
 	githubstalk,
+	GetPinterest,
 	shuffleArray
 } = require("../lib/");
 
 
 System({
-  pattern: 'ig ?(.*)',
-  fromMe: isPrivate,
-  desc: "Search Instagram Profile",
-  type: "search",
+     pattern: 'ig ?(.*)',
+     fromMe: isPrivate,
+     desc: "Search Instagram Profile",
+     type: "search",
 }, async (message, match) => {
   try {
     if (!match) {
@@ -50,13 +51,30 @@ System({
 
 
 System({
-	pattern: "searchpin",
-	fromMe: isPrivate,
-	desc: "Search pinterest image",
-	type: "search",
+     pattern: "searchpin",
+     fromMe: isPrivate,
+     desc: "Search pinterest image",
+     type: "search",
 }, async (message, match) => {
-	const _0x5ab352=_0x3315;(function(_0x49c64b,_0x31ba15){const _0x5f0806=_0x3315,_0x3e97df=_0x49c64b();while(!![]){try{const _0x37d74d=parseInt(_0x5f0806(0x165))/(-0x1b01+0x8f6+0x120c)+parseInt(_0x5f0806(0x162))/(-0x508+0xa4*0x18+-0xa56)*(parseInt(_0x5f0806(0x16b))/(-0xa9b+-0x1*0xf+0xaad*0x1))+parseInt(_0x5f0806(0x157))/(0x65*0x52+0x1*-0x17a7+0x8af*-0x1)+parseInt(_0x5f0806(0x15e))/(0x1c69*0x1+0xd8b+-0x29ef)+-parseInt(_0x5f0806(0x161))/(-0x194c+0x13cf+0x583)+parseInt(_0x5f0806(0x15c))/(0x6c4+0x1603+0x1*-0x1cc0)+-parseInt(_0x5f0806(0x155))/(-0x2457+0xc*-0x1b+0x25a3);if(_0x37d74d===_0x31ba15)break;else _0x3e97df['push'](_0x3e97df['shift']());}catch(_0x918779){_0x3e97df['push'](_0x3e97df['shift']());}}}(_0x1ecf,0x74e5f+0x584a4+-0x5c3fd),match=match);function _0x1ecf(){const _0x2c6137=['jid','interest','sendMessag','sort','error','ng\x20Pintere','slice','7513032pKVoPJ','client','1893064eGPIND','ery*\x20for\x20P','length','search\x20*qu','\x20query*','1321117nRELLH','ccurred\x20wh','2344580wYChHR','st\x20images.','?query=','5087658GmClpI','114628VxBAqd','get','An\x20error\x20o','373675WBmkMJ','Provide\x20a\x20','\x20the\x20given','data','reply','ile\x20fetchi','39LTaoYI','random','*No\x20images','search/pin','\x20found\x20for'];_0x1ecf=function(){return _0x2c6137;};return _0x1ecf();}if(!match)return await message[_0x5ab352(0x169)](_0x5ab352(0x166)+_0x5ab352(0x15a)+_0x5ab352(0x158)+_0x5ab352(0x171));function _0x3315(_0x9c061,_0x288c65){const _0x1fe882=_0x1ecf();return _0x3315=function(_0x510e62,_0x1119da){_0x510e62=_0x510e62-(-0x209b+-0x25a5*-0x1+-0x88*0x7);let _0x44633e=_0x1fe882[_0x510e62];return _0x44633e;},_0x3315(_0x9c061,_0x288c65);}const IronManHaX=await IronMan(_0x5ab352(0x16e)+_0x5ab352(0x160)+match);try{const pinterestResponse=await axios[_0x5ab352(0x163)](IronManHaX);if(pinterestResponse[_0x5ab352(0x168)]&&pinterestResponse[_0x5ab352(0x168)][_0x5ab352(0x159)]>0x563*0x5+-0x1*-0x240f+-0x3efe){const shuffledImages=pinterestResponse[_0x5ab352(0x168)][_0x5ab352(0x173)](()=>Math[_0x5ab352(0x16c)]()-(-0x230b*0x1+0x142d+-0x76f*-0x2+0.5)),randomImages=shuffledImages[_0x5ab352(0x154)](0x213f+-0x726*-0x5+0x7*-0x9db,0x200a+0x428+-0x1b*0x157);for(const imageUrl of randomImages){await message[_0x5ab352(0x156)][_0x5ab352(0x172)+'e'](message[_0x5ab352(0x170)],{'image':{'url':imageUrl}});}}else await message[_0x5ab352(0x169)](_0x5ab352(0x16d)+_0x5ab352(0x16f)+_0x5ab352(0x167)+_0x5ab352(0x15b));}catch(_0x2334a7){console[_0x5ab352(0x152)](_0x2334a7),await message[_0x5ab352(0x169)](_0x5ab352(0x164)+_0x5ab352(0x15d)+_0x5ab352(0x16a)+_0x5ab352(0x153)+_0x5ab352(0x15f));}
+  try {
+    if (!match) {
+      return await message.reply('_Please provide an Instagram *username*_ *Example: .ig sedboy.am*');
+    } else {
+      if (isUrl(match)) {
+        return await message.reply("_Please provide an Instagram *username*_ *Example: .ig sedboy.am*");
+      } else {
+        const urls = await GetPinterest(match);
+
+        for (const url of urls) {
+          await m.send(url, { quoted: message.data }, "image");
+        }
+      }
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
 });
+
 
 System({
 		pattern: "github",
