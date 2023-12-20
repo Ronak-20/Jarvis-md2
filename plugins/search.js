@@ -58,15 +58,14 @@ System({
 }, async (message, match) => {
   try {
     if (!match) {
-      return await message.reply('_Please provide an Instagram *username*_ *Example: .ig sedboy.am*');
+      return await message.reply('_*Example: loki*_');
     } else {
       if (isUrl(match)) {
-        return await message.reply("_Please provide an Instagram *username*_ *Example: .ig sedboy.am*");
+        return await message.reply("_*Example: loki*_");
       } else {
         const urls = await GetPinterest(match);
-
         for (const url of urls) {
-          await m.send(url, { quoted: message.data }, "image");
+          await message.send(url, { quoted: message.data }, "image");
         }
       }
     }
