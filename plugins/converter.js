@@ -15,8 +15,9 @@ const {
 	tiny,
 	toPTT,
 	System,
-	styletext,
+	sendPvt,
 	listall,
+	styletext,
 	isPrivate,
 	sendAudio,
 	webp2mp4,
@@ -47,6 +48,16 @@ System({
 	type: "converter",
 }, async (message, match, m) => {
 	await sendAudio(message, match, m);
+});
+
+
+System({
+	pattern: "vid",
+	fromMe: isPrivate,
+	desc: "video into pvt converter",
+	type: "converter",
+}, async (message, match, m) => {
+	await sendPvt(message, match, m);
 });
 
 
