@@ -211,6 +211,8 @@ System({
   on: 'text'
 }, async (message) => {
   if (message.isBot) return;
+  if (!message.reply_message?.fromMe || !message.reply_message?.text) return;
+  if (!message.reply_message.text.includes('_Send number as reply to download_')) return;
   let match = message.body.replace('⬢', '');
   if (message.body.includes('⬢ audio')) {
     const ytAudio = await Ytsearch(match);
