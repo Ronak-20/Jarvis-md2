@@ -182,7 +182,7 @@ System({
       return await message.reply('_Give a *Query* to play the song or video_');
     } else {
       if (isUrl(match)) {
-        return await message.reply("_Only *Query* will work *e.g.: heat waves*_");
+        return await message.reply("_Only *Query* will work *e.g : heat waves*_");
       } else {
         const yt = await Ytsearch(match);
         await message.client.sendMessage(message.from, {
@@ -228,8 +228,6 @@ System({
       audio: aud,
       mimetype: 'audio/mpeg',
       contextInfo: {
-        forwardingScore: 555,
-        isForwarded: true,
         externalAdReply: {
           title: ytAudio.author.name,
           body: ytAudio.ago,
