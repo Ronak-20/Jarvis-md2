@@ -52,7 +52,7 @@ System({
 
 
 System({
-	pattern: "vid",
+	pattern: "pvt",
 	fromMe: isPrivate,
 	desc: "video into pvt converter",
 	type: "converter",
