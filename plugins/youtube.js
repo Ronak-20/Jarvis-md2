@@ -170,3 +170,88 @@ System(
     }
   }
 );
+
+System({
+  pattern: 'play ?(.*)',
+  fromMe: isPrivate,
+  desc: 'YouTube video player',
+  type: 'download',
+}, async (message, match) => {
+  try {
+    if (!match) {
+      return await message.reply('_Give a *Query* to play the song or video_');
+    } else {
+      if (isUrl(match)) {
+        return await message.reply("_Only *Query* will work *e.g.: heat waves*_");
+      } else {
+        const yt = await Ytsearch(match);
+        await m.client.sendMessage(message.from, {
+          text: `*_${yt.title}_*\n\n\n\`\`\`1. ⬢ audio\`\`\`\n\`\`\`2. ⬢ video\`\`\`\n\n_*Send a number as a reply to download*_`,
+          contextInfo: {
+            externalAdReply: {
+              title: yt.author.name,
+              body: yt.ago,
+              thumbnail: await getBuffer(yt.image),
+              mediaType: 1,
+              mediaUrl: yt.url,
+              sourceUrl: yt.url,
+              showAdAttribution: false,
+              renderLargerThumbnail: true
+            }
+          }
+        });
+      }
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+});
+
+System({
+  on: 'text'
+}, async (message) => {
+  if (message.isBot) return;
+  let match = message.body.replace('⬢', '');
+  if (message.body.includes('⬢ audio')) {
+    const ytAudio = await Ytsearch(match);
+    const msg = await message.send(`_*Now playing : ${ytAudio.title} 🎶*_`);
+    const data = config.AUDIO_DATA.split(';');
+    const aud = await AddMp3Meta(
+      await toAudio(await GetYta(ytAudio.url), 'mp3'),
+      await getBuffer(data[2]),
+      {
+        title: data[0],
+        body: data[1],
+      }
+    );
+    await message.client.sendMessage(message.from, {
+      audio: aud,
+      mimetype: 'audio/mpeg',
+      contextInfo: {
+        forwardingScore: 555,
+        isForwarded: true,
+        externalAdReply: {
+          title: ytAudio.author.name,
+          body: ytAudio.ago,
+          thumbnail: await getBuffer(ytAudio.image),
+          mediaType: 1,
+          mediaUrl: ytAudio.url,
+          sourceUrl: ytAudio.url,
+          showAdAttribution: false,
+          renderLargerThumbnail: true
+        }
+      }
+    }, { quoted: msg });
+  } else if (message.body.includes('⬢ video')) {
+    const data = await Ytsearch(match);
+    const q = await message.send(`_*Now playing : ${data.title} 🎶*_`);
+    await message.send(
+      await GetYtv(data.url),
+      { caption: `_*${data.title}*_`, quoted: q },
+      'video'
+    );
+  } else {
+    return;
+  }
+});
+
