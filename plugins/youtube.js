@@ -185,7 +185,7 @@ System({
         return await message.reply("_Only *Query* will work *e.g.: heat waves*_");
       } else {
         const yt = await Ytsearch(match);
-        await m.client.sendMessage(message.from, {
+        await message.client.sendMessage(message.from, {
           text: `*_${yt.title}_*\n\n\n\`\`\`1. ⬢ audio\`\`\`\n\`\`\`2. ⬢ video\`\`\`\n\n_*Send a number as a reply to download*_`,
           contextInfo: {
             externalAdReply: {
