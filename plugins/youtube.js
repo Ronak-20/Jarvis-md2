@@ -270,7 +270,7 @@ System({
       } else {
         const videos = await yts(match);
         const result = videos.all.map(video => `*🏷️ Title :* _*${video.title}*_\n*📁 Duration :* _${video.duration}_\n*🔗 Link :* _${video.url} 🎐_`);
-        return await message.reply('\n\n_*Result Of `${match} 🔍*_\n\n'+result.join('\n\n')+"\n\n*🤍 صنع بواسطة لوكي*")
+        return await message.reply(`\n\n_*Result Of ${match} 🔍*_\n\n`+result.join('\n\n')+"\n\n*🤍 صنع بواسطة لوكي*")
       }
     }
   } catch (error) {
