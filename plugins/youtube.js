@@ -1,4 +1,5 @@
 const {
+  yts,
   tiny,
   isUrl,
   System,
@@ -254,3 +255,25 @@ System({
   }
 });
 
+System({
+     pattern: 'yts ?(.*)',
+     fromMe: isPrivate,
+     desc: "yt search",
+     type: "search",
+}, async (message, match) => {
+  try {
+    if (!match) {
+      return await message.reply('_Please provide an *Query*');
+    } else {
+      if (isUrl(match)) {
+        return await message.reply("_Not a *Url* Please provide an *Query*");
+      } else {
+        const videos = await yts(match);
+        const result = videos.all.map(video => `*🏷️ Title :* _*${video.title}*_\n*📁 Duration :* _${video.duration}_\n*🔗 Link :* _${video.url} 🎐_`);
+        return await message.reply('\n\n_*Result Of `${match} 🔍*_\n\n'+result.join('\n\n')+"\n\n*🤍 صنع بواسطة لوكي*")
+      }
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+});
