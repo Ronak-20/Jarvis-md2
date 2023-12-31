@@ -28,18 +28,28 @@ const {
 
 
 System({
-	pattern: "photo",
-	fromMe: isPrivate,
-	desc: "Sticker to Image",
-	type: "converter",
-}, async (message, match, m) => {
-	if (!message.reply_message.sticker) return await message.reply("_Reply to a sticker_");
-	if (message.reply_message.stickerMessage.isAnimated) return await message.reply("_reply to a non animated sticker message_");
-	let buff = await message.reply_message.download();
-	let buffer = await webp2png(buff);
-	return await message.send(buffer, {}, "image");
-});
+    pattern: "photo",
+    fromMe: isPrivate,
+    desc: "Sticker to Image",
+    type: "converter",
+}, async (message) => {
+    try {
+        if (!message.reply_message?.sticker) {
+            return await message.reply("_Reply to a sticker_");
+        }
 
+        if (message.reply_message.stickerMessage.isAnimated) {
+            return await message.reply("_Reply to a non-animated sticker message_");
+        }
+
+        let buff = await message.reply_message.download();
+        let buffer = await webp2png(buff);
+        return await message.send(buffer, {}, "image");
+    } catch (error) {
+        console.error("An error occurred:", error);
+        return await message.reply("_An error occurred while converting sticker to image._");
+    }
+});
 
 System({
 	pattern: "mp3",
@@ -50,7 +60,6 @@ System({
 	await sendAudio(message, match, m);
 });
 
-
 System({
 	pattern: "ptv",
 	fromMe: isPrivate,
@@ -60,90 +69,127 @@ System({
 	await sendPvt(message, match, m);
 });
 
-
 System({
-	pattern: "wawe",
-	fromMe: isPrivate,
-	desc: "audio into wawe",
-	type: "converter",
-}, async (message, match, m) => {
-	if (!message.reply_message.audio) return await message.reply("_Reply to a audio_");
-	let buff = await message.reply_message.download();
-        let media = await toPTT(buff);
-        return await message.send(media, { mimetype: 'audio/mpeg', ptt: true, quoted: message.data }, "audio");
-});
-
-
-
-System({
-	pattern: "mp4",
-	fromMe: isPrivate,
-	desc: "Changes sticker to Video",
-	type: "converter",
-}, async (message, match, m) => {
-	if (!message.reply_message.sticker) return await message.reply("_Reply to a sticker_");
-	if (!message.reply_message.stickerMessage.isAnimated) return await message.reply("_reply to a animated sticker message_");
-	let buff = await message.reply_message.download();
-	let buffer = await webp2mp4(buff);
-	return await message.send(buffer, {}, "video");
-});
-
-
-System({
-	pattern: "gif",
-	fromMe: isPrivate,
-	desc: "Changes sticker to Gif",
-	type: "converter",
-},async (message, match, m) => {
-	if (!message.reply_message.sticker) return await message.reply("_Reply to a sticker_");
-	if (!message.reply_message.stickerMessage.isAnimated) return await message.reply("_reply to a animated sticker message_");
-	const buff = await message.reply_message.download();
-	const buffer = await webp2mp4(buff);
-	return await message.send(buffer, { gifPlayback: true }, "video");
-});
-
-
-System({
-	pattern: "fancy",
-	fromMe: isPrivate,
-	desc: "converts text to fancy text",
-	type: "converter",
-}, async (message, match) => {
-	if (!message.reply_message || !message.reply_message.text || !match || isNaN(match)) {
-	let text = tiny(`Fancy text generator\n\nReply to a message\nExample: .fancy 32\n\n`);
-	listall("Fancy").forEach((txt, num) => {
-	text += `${(num += 1)} ${txt}\n`;
-	});
-	return await message.reply(text);
-	} else {
-	message.reply(styletext(message.reply_message.text, parseInt(match)));
-	}
-});
-
-
-System({
-	pattern: 'black',
-	fromMe: isPrivate,
-	desc: 'make audio into black video',
-	type: "converter"
+    pattern: "wawe",
+    fromMe: isPrivate,
+    desc: "audio into wave",
+    type: "converter",
 }, async (message) => {
-	try {
-	const ffmpeg = ff();
-        if (!message.reply_message.audio) return await message.send("_reply to audio message_");
+    try {
+        if (!message.reply_message?.audio) {
+            return await message.reply("_Reply to an audio_");
+        }
+
+        let buff = await message.reply_message.download();
+        let media = await toPTT(buff);
+
+        return await message.send(media, { mimetype: 'audio/mpeg', ptt: true, quoted: message.data }, "audio");
+    } catch (error) {
+        console.error("An error occurred:", error);
+        return await message.reply("_An error occurred while converting audio to wave._");
+    }
+});
+
+System({
+    pattern: "mp4",
+    fromMe: isPrivate,
+    desc: "Changes sticker to Video",
+    type: "converter",
+}, async (message) => {
+    try {
+        if (!message.reply_message?.sticker) {
+            return await message.reply("_Reply to a sticker_");
+        }
+
+        if (!message.reply_message.stickerMessage.isAnimated) {
+            return await message.reply("_Reply to an animated sticker message_");
+        }
+
+        let buff = await message.reply_message.download();
+        let buffer = await webp2mp4(buff);
+
+        return await message.send(buffer, {}, "video");
+    } catch (error) {
+        console.error("An error occurred:", error);
+        return await message.reply("_An error occurred while converting sticker to video._");
+    }
+});
+
+System({
+    pattern: "gif",
+    fromMe: isPrivate,
+    desc: "Changes sticker to Gif",
+    type: "converter",
+}, async (message) => {
+    try {
+        if (!message.reply_message?.sticker) {
+            return await message.reply("_Reply to a sticker_");
+        }
+
+        if (!message.reply_message.stickerMessage.isAnimated) {
+            return await message.reply("_Reply to an animated sticker message_");
+        }
+
+        const buff = await message.reply_message.download();
+        const buffer = await webp2mp4(buff);
+
+        return await message.send(buffer, { gifPlayback: true }, "video");
+    } catch (error) {
+        console.error("An error occurred:", error);
+        return await message.reply("_An error occurred while converting sticker to GIF._");
+    }
+});
+
+System({
+    pattern: "fancy",
+    fromMe: isPrivate,
+    desc: "converts text to fancy text",
+    type: "converter",
+}, async (message, match) => {
+    if (!message.reply_message || !message.reply_message.text || !match || isNaN(match)) {
+        let text = tiny(`Fancy text generator\n\nReply to a message\nExample: .fancy 32\n\n`);
+        listall("Fancy").forEach((txt, num) => {
+            text += `${(num += 1)} ${txt}\n`;
+        });
+        return await message.reply(text);
+    } else {
+        await message.reply(styletext(message.reply_message.text, parseInt(match)));
+    }
+});
+
+System({
+    pattern: 'black',
+    fromMe: isPrivate,
+    desc: 'make audio into black video',
+    type: "converter"
+}, async (message) => {
+    try {
+        const ffmpeg = ff();
+        if (!message.reply_message?.audio) {
+            return await message.send("_Reply to an audio message_");
+        }
+
         const file = './lib/system/media/black.jpg';
         const audioFile = './lib/system/media/audio.mp3';
-	fs.writeFileSync(audioFile, await message.reply_message.download());
+
+        fs.writeFileSync(audioFile, await message.reply_message.download());
+
         ffmpeg.input(file);
-	ffmpeg.input(audioFile);
-	ffmpeg.output('./lib/system/media/videoMixed.mp4');
+        ffmpeg.input(audioFile);
+        ffmpeg.output('./lib/system/media/videoMixed.mp4');
+
         ffmpeg.on('end', async () => {
-	await message.send(fs.readFileSync('./lib/system/media/videoMixed.mp4'), {}, 'video');
-	});
+            await message.send(fs.readFileSync('./lib/system/media/videoMixed.mp4'), {}, 'video');
+        });
+
         ffmpeg.on('error', async (err) => {
-	await message.reply(err);
-	});
+            console.error('FFmpeg error:', err);
+            await message.reply("An error occurred during video conversion.");
+        });
+
         ffmpeg.run();
-	} catch (e) {
-	return message.send(e);
-	}
+    } catch (e) {
+        console.error('An error occurred:', e);
+        return message.send("An unexpected error occurred.");
+    }
 });
