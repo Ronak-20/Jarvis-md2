@@ -154,7 +154,7 @@ System({
 
         let wm = 'https://wa.me/' + user.split('@')[0];
         const setAt = date.toLocaleString('en-US', options);
-        const NaMe = await message.getName(`${user.replace(/[^0-9]/g, '')}`)
+        const NaMe = await message.getName(message.sender)
         await message.send({
             url: pp
         }, {
