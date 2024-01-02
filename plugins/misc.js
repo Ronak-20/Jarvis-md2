@@ -158,7 +158,7 @@ System({
         await message.send({
             url: pp
         }, {
-            caption: `*Name :* NaMe\n*About :* ${status.status}\n*About Set Date :* ${setAt}\n*whatsapp :* ${wm}`,
+            caption: `*Name :* ${NaMe}\n*About :* ${status.status}\n*About Set Date :* ${setAt}\n*whatsapp :* ${wm}`,
             quoted: message
         },
         'image');
