@@ -154,11 +154,11 @@ System({
 
         let wm = 'https://wa.me/' + user.split('@')[0];
         const setAt = date.toLocaleString('en-US', options);
-
+        const NaMe = await message.getName(`${user.replace(/[^0-9]/g, '')}`)
         await message.send({
             url: pp
         }, {
-            caption: `*Name :* @${user.replace(/[^0-9]/g, '')}\n*About :* ${status.status}\n*About Set Date :* ${setAt}\n*whatsapp :* ${wm}`,
+            caption: `*Name :* NaMe\n*About :* ${status.status}\n*About Set Date :* ${setAt}\n*whatsapp :* ${wm}`,
             quoted: message
         },
         'image');
