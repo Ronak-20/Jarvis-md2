@@ -154,7 +154,7 @@ System({
 
         let wm = 'https://wa.me/' + user.split('@')[0];
         const setAt = date.toLocaleString('en-US', options);
-        const NaMe = await message.getName(message.sender)
+        const NaMe = await message.getName(message.reply_message.sender)
         await message.send({
             url: pp
         }, {
