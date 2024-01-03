@@ -211,7 +211,6 @@ System({
 System({
   on: 'text'
 }, async (message) => {
-  if (message.isBot) return;
   if (!message.reply_message.fromMe || !message.reply_message.text) return;
   let match = message.body.replace('⬢', '');
   if (message.body.includes('⬢ audio')) {
