@@ -1,3 +1,14 @@
+/*------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Copyright (C) 2023 Loki - Xer.
+Licensed under the  GPL-3.0 License;
+you may not use this file except in compliance with the License.
+Jarvis - Loki-Xer 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 const {
   yts,
   tiny,
@@ -216,8 +227,10 @@ System({
 });
 
 System({
-  on: 'text'
+  on: 'text',
+  dontAddCommandList: true,
 }, async (message) => {
+  if (message.isBot) return;
   if (!message.reply_message.fromMe || !message.reply_message.text) return;
   let match = message.body.replace('⬢', '');
   if (message.body.includes('⬢ audio')) {
