@@ -317,3 +317,19 @@ System({
         participant.forEach((result) => { str += ` ${result}\n`; });
         await message.reply(str);
 });
+
+System({
+	pattern: 'ginfo ?(.*)',
+	fromMe: true,
+	desc: 'Shows group invite info',
+	type: 'group'
+}, async (message, match) => {
+	match = match || message.reply_message.text
+	if (!match) return await message.reply('*Need Group Link*\n_Example : ginfo group link_')
+	const [link, invite] = match.match(/chat.whatsapp.com\/([0-9A-Za-z]{20,24})/i) || []
+	if (!invite) return await message.reply('*Invalid invite link*')
+	try { const response = await message.client.groupGetInviteInfo(invite)
+	await message.send("id: " + response.id + "\nsubject: " + response.subject + "\nowner: " + `${response.owner ? response.owner.split('@')[0] : 'unknown'}` + "\nsize: " + response.size + "\nrestrict: " + response.restrict + "\nannounce: " + response.announce + "\ncreation: " + require('moment-timezone')(response.creation * 1000).tz('Asia/Kolkata').format('DD/MM/YYYY HH:mm:ss') + "\ndesc" + response.desc)
+	} catch (error) {
+	await message.reply('*Invalid invite link*') }
+})
