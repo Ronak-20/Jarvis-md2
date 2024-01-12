@@ -262,74 +262,90 @@ System({
 });
 
 System({
-	pattern: 'gname ?(.*)',
-	fromMe: true,
-	desc: "To change the group's subject",
-	type: 'group'
+    pattern: 'gname ?(.*)',
+    fromMe: true,
+    desc: "To change the group's subject",
+    type: 'group'
 }, async (message, match, client) => {
-	match = match || message.reply_message.text
-	if (!message.isGroup)
-	return await message.reply("_This command is for groups_");
-	if (!match) return await message.send('*Need Subject!*\n*Example: gname New Subject!*.')
-	const meta = await message.client.groupMetadata(message.chat)
-	if (!meta.restrict) {
-	await message.client.groupUpdateSubject(message.chat, match)
-	return await message.send("*Subject updated*") }
-	const isbotAdmin = await isBotAdmins(message)
-	if (!isbotAdmin) return await message.send("I'm not an admin")
-	await client.groupUpdateSubject(message.chat, match)
-	return await message.send("*Subject updated*")
+    match = match || message.reply_message.text
+    if (!message.isGroup)
+    return await message.reply("_This command is for groups_");
+    if (!match) return await message.send('*Need Subject!*\n*Example: gname New Subject!*.')
+    const meta = await message.client.groupMetadata(message.chat)
+    if (!meta.restrict) {
+    await message.client.groupUpdateSubject(message.chat, match)
+    return await message.send("*Subject updated*") }
+    const isbotAdmin = await isBotAdmins(message)
+    if (!isbotAdmin) return await message.send("I'm not an admin")
+    await client.groupUpdateSubject(message.chat, match)
+    return await message.send("*Subject updated*")
 })
 
 
 System({
-	pattern: 'gdesc ?(.*)',
-	fromMe: true,
-	desc: "To change the group's description",
-	type: 'group'
+    pattern: 'gdesc ?(.*)',
+    fromMe: true,
+    desc: "To change the group's description",
+    type: 'group'
 }, async (message, match, client) => {
-	match = match || message.reply_message.text
-	if (!message.isGroup)
-	return await message.reply("_This command is for groups_");
-	if (!match) return await message.send('*Need Description!*\n*Example: gdesc New Description!*.')
-	const meta = await message.client.groupMetadata(message.data.bot)
-	if (!meta.restrict) {
-	await message.client.groupUpdateDescription(message.data.bot, match)
-	return await message.send("_*Description updated*_")
-	} const isbotAdmin = await isBotAdmins(message.data)
-	if (!isbotAdmin) return await message.send("_I'm not an admin_")
-	await message.client.groupUpdateDescription(message.data.bot, match)
-	return await message.send("_*Description updated*_")
+    match = match || message.reply_message.text
+    if (!message.isGroup)
+    return await message.reply("_This command is for groups_");
+    if (!match) return await message.send('*Need Description!*\n*Example: gdesc New Description!*.')
+    const meta = await message.client.groupMetadata(message.data.bot)
+    if (!meta.restrict) {
+    await message.client.groupUpdateDescription(message.data.bot, match)
+    return await message.send("_*Description updated*_")
+    } const isbotAdmin = await isBotAdmins(message.data)
+    if (!isbotAdmin) return await message.send("_I'm not an admin_")
+    await message.client.groupUpdateDescription(message.data.bot, match)
+    return await message.send("_*Description updated*_")
 })
 
 System({
-	pattern: 'gjid ?(.*)',
-	fromMe: true,
-	desc: "To get group jid",
-	type: 'group'
+    pattern: 'gjid ?(.*)',
+    fromMe: true,
+    desc: "To get group jid",
+    type: 'group'
 }, async (message, match, client) => {
-	match = match || message.reply_message.text
-	if (!message.isGroup)
-	return await message.reply("_This command is for groups_");
-	let { participants } = await message.client.groupMetadata(message.jid);
-        let participant = participants.map((u) => u.id);
-        let str = " *Group Jids* \n\n";
-        participant.forEach((result) => { str += ` ${result}\n`; });
-        await message.reply(str);
+    match = match || message.reply_message.text
+    if (!message.isGroup)
+    return await message.reply("_This command is for groups_");
+    let { participants } = await message.client.groupMetadata(message.jid);
+    let participant = participants.map((u) => u.id);
+    let str = " *Group Jids* \n\n";
+    participant.forEach((result) => { str += ` ${result}\n`; });
+    await message.reply(str);
 });
 
 System({
-	pattern: 'ginfo ?(.*)',
-	fromMe: true,
-	desc: 'Shows group invite info',
-	type: 'group'
+    pattern: 'ginfo ?(.*)',
+    fromMe: true,
+    desc: 'Shows group invite info',
+    type: 'group'
 }, async (message, match) => {
-	match = match || message.reply_message.text
-	if (!match) return await message.reply('*Need Group Link*\n_Example : ginfo group link_')
-	const [link, invite] = match.match(/chat.whatsapp.com\/([0-9A-Za-z]{20,24})/i) || []
-	if (!invite) return await message.reply('*Invalid invite link*')
-	try { const response = await message.client.groupGetInviteInfo(invite)
-	await message.send("id: " + response.id + "\nsubject: " + response.subject + "\nowner: " + `${response.owner ? response.owner.split('@')[0] : 'unknown'}` + "\nsize: " + response.size + "\nrestrict: " + response.restrict + "\nannounce: " + response.announce + "\ncreation: " + require('moment-timezone')(response.creation * 1000).tz('Asia/Kolkata').format('DD/MM/YYYY HH:mm:ss') + "\ndesc" + response.desc)
-	} catch (error) {
-	await message.reply('*Invalid invite link*') }
+    match = match || message.reply_message.text
+    if (!match) return await message.reply('*Need Group Link*\n_Example : ginfo group link_')
+    const [link, invite] = match.match(/chat.whatsapp.com\/([0-9A-Za-z]{20,24})/i) || []
+    if (!invite) return await message.reply('*Invalid invite link*')
+    try { const response = await message.client.groupGetInviteInfo(invite)
+    await message.send("id: " + response.id + "\nsubject: " + response.subject + "\nowner: " + `${response.owner ? response.owner.split('@')[0] : 'unknown'}` + "\nsize: " + response.size + "\nrestrict: " + response.restrict + "\nannounce: " + response.announce + "\ncreation: " + require('moment-timezone')(response.creation * 1000).tz('Asia/Kolkata').format('DD/MM/YYYY HH:mm:ss') + "\ndesc" + response.desc)
+    } catch (error) {
+    await message.reply('*Invalid invite link*') }
 })
+
+System({
+    pattern: "create",
+    fromMe: true,
+    desc: "to create a group",
+    type: "group",
+}, async (m) => {
+    try {
+    if (!m.quoted.sender) return m.reply("_reply to a user_");
+    const group = await m.client.groupCreate(m.pushName, [m.jid, m.quoted.sender]);
+    const name = await m.getName(m.quoted.sender);
+    await m.client.sendMessage(group.id, { text: `hello there ${name} 😃🍉` });
+    } catch (error) {
+    console.error("Error in group creation:", error);
+    await m.reply("Error creating the group. Please try again later."); }
+});
