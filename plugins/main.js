@@ -58,24 +58,22 @@ System({
 });
 
 System({
-		pattern: "take",
-		fromMe: isPrivate,
-		desc: "Changes Exif data of stickers",
-		type: "tool",
-	},
-	async (message, match, m) => {
-		await take(message, match, m);
-	});
+	pattern: "take",
+	fromMe: isPrivate,
+	desc: "Changes Exif data of stickers",
+	type: "tool",
+},async (message, match, m) => {
+	await take(message, match, m);
+});
 
 System({
-		pattern: "sticker",
-		fromMe: isPrivate,
-		desc: "_Converts Photo or video to sticker_",
-		type: "converter",
-	},
-	async (message, match, m) => {
-		await sendSticker(message, match, m);
-	});
+	pattern: "sticker",
+	fromMe: isPrivate,
+	desc: "_Converts Photo or video to sticker_",
+	type: "converter",
+}, async (message, match, m) => {
+	await sendSticker(message, match, m);
+});
 
 System({
 	pattern: "exif",
@@ -96,19 +94,14 @@ System({
 });
 
 System({
-		pattern: "list",
-		fromMe: isPrivate,
-		desc: "Show All commands",
-		type: "user",
-		dontAddCommandList: true,
-	},
-	async (message, match, {
-		prefix
-	}) => {
-		await sendList(message, match, {
-			prefix
-		});
-	});
+	pattern: "list",
+	fromMe: isPrivate,
+	desc: "Show All commands",
+	type: "user",
+	dontAddCommandList: true,
+}, async (message, match, { prefix }) => {
+	await sendList(message, match, { prefix });
+});
 
 System({
 	pattern: "plugin",
@@ -130,11 +123,10 @@ System({
 });
 
 System({
-		pattern: "url",
-		fromMe: isPrivate,
-		desc: "make media into url",
-		type: "converter",
-	},
-	async (message, match, m) => {
-		await sendUrl(message, match, m)
-	});
+	pattern: "url",
+	fromMe: isPrivate,
+	desc: "make media into url",
+	type: "converter",
+}, async (message, match, m) => {
+	await sendUrl(message, match, m)
+});
