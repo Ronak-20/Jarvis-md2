@@ -44,7 +44,6 @@ async (message, match) => {
     }
 });
 
-
 System({
     pattern: "attp",
     fromMe: isPrivate,
@@ -69,33 +68,6 @@ System({
         await message.reply("An error occurred while fetching the API data.");
     }
 });
-
-
-System({
-    pattern: "attp",
-    fromMe: isPrivate,
-    desc: "Text to animated sticker",
-    type: "converter",
-}, async (message, match) => {
-    try {
-        match = match || (message.reply_message && message.reply_message.text);
-
-        if (!match) {
-            return await message.reply("_Give me some text_");
-        } else {
-            await message.send("_making text into attp, it may take up to 1 minute_");
-            const buff = await LokiXer(`attp?text=${encodeURIComponent(match)}`);
-            const stickerPackNameParts = config.STICKER_PACKNAME.split(";");
-            const packname = stickerPackNameParts[0];
-            const author = stickerPackNameParts[1];
-            await message.send(buff, { packname, author }, "sticker");
-        }
-    } catch (error) {
-        console.error("An error occurred:", error);
-        await message.reply("An error occurred while fetching the API data.");
-    }
-});
-
 
 System({
     pattern: "bitly",
@@ -121,7 +93,6 @@ System({
         return await message.reply("_An error occurred while shortening the URL._");
     }
 });
-
 
 System({
     pattern: 'whois ?(.*)',
