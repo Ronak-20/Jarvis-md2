@@ -1,4 +1,4 @@
-const { getJson, System, isPrivate, wait, Support } = require("../lib/"); 
+const { getJson, getBuffer, System, isPrivate, wait, Support } = require("../lib/"); 
 
 System({
         pattern: "report", 
