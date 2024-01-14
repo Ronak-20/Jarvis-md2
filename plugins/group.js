@@ -16,6 +16,7 @@ const {
     isAdmin,
     isPrivate,
     parsedJid,
+    warnMessage,
     isBotAdmins,
     updateProfilePicture,
     extractUrlFromMessage,
@@ -349,3 +350,12 @@ System({
     console.error("Error in group creation:", error);
     await m.reply("Error creating the group. Please try again later."); }
 });
+
+System({
+	pattern: "warn",
+	fromMe: true,
+	desc: "Warn a user",
+	type: "group",
+}, async (message, match) => {
+  await warnMessage(message, match)
+})
