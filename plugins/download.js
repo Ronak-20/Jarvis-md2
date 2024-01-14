@@ -66,6 +66,7 @@ System({
   desc: "pinterest downloader",
   type: "download",
 }, async (message, match, m) => {
+match = match || message.reply_message.text;
   try {
     if (!match) {
       return await message.reply('_Please provide a pinterest *url*');
@@ -73,7 +74,7 @@ System({
       if (!isUrl(match)) {
         return await message.reply("_Please provide a valid pinterest *url*");
       } else {
-        await m.sendFromUrl(await Pinterestdl(message, match));
+        await m.sendFromUrl(await Pinterestdl(message, await extractUrlFromMessage(match)));
       }
     }
   } catch (error) {
