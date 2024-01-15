@@ -11,9 +11,9 @@ Jarvis - Loki-Xer
 
 const {
   isUrl,
-  Bitly,
   System,
   LokiXer,
+  getJson,
   isPrivate,
 } = require("../lib/");
 const config = require('../config');
@@ -77,16 +77,13 @@ System({
 }, async (message, match) => {
     try {
         match = match || (message.reply_message && message.reply_message.text);
-
         if (!match) {
             return await message.reply("_Reply to a URL or enter a URL_");
         }
-
         if (!isUrl(match)) {
             return await message.reply("_Not a valid URL_");
         }
-
-        let short = await Bitly(match);
+        let short = await getJson(await LokiXer(`bitly?link=${match}`));
         return await message.reply(short.link);
     } catch (error) {
         console.error("An error occurred:", error);
