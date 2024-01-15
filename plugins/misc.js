@@ -14,6 +14,7 @@ const {
   System,
   LokiXer,
   getJson,
+  postJson,
   isPrivate,
 } = require("../lib/");
 const config = require('../config');
@@ -42,6 +43,19 @@ async (message, match) => {
     } else {
         await message.forward(message.dm, message.reply_message, { quoted: message.data });
     }
+});
+
+System({
+    pattern: "trt", 
+    fromMe: isPrivate,
+    desc: "change language", 
+    type: "misc",
+}, async (m, match) => {
+    match = m.reply_message.text || match;
+    if (!match) return await m.reply("_provided text to translate *eg: i am fine;ml*_");
+    const text = match.split(";");
+    const result = await postJson("https://api.lokiser.xyz/post/trt", { text: text[0], lang: text[1] || config.LANG });
+    return await m.reply(result.message);
 });
 
 System({
