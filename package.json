@@ -20,7 +20,6 @@
         "pm2": "^5.2.0",
         "awesome-phonenumber": "^6.4.0",
         "jarvis-md": "^1.0.0",
-        "bitly": "^7.1.2",
         "browser-id3-writer": "^4.4.0",
         "cheerio": "^1.0.0-rc.10",
         "crypto-js": "^4.1.1",
