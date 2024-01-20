@@ -109,7 +109,8 @@ System({
 System({
     pattern: 'whois ?(.*)',
     type: 'user',
-    desc: 'to find how is'
+    desc: 'to find how is',
+    type: "misc",
 }, async (message, match) => {
     try {
         let user = message.reply_message?.sender || (match ? match.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : null);
