@@ -10,6 +10,7 @@ Jarvis - Loki-Xer
 ------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 const {
+  axios,
   isUrl,
   System,
   LokiXer,
@@ -148,4 +149,22 @@ System({
         console.error('An error occurred:', e);
         return await message.send('Failed');
     }
+});
+
+System({
+    pattern: 'tts ?(.*)',
+    fromMe: isPrivate,
+    desc: 'It converts text to sound.',
+    type: 'misc'
+}, async (message, match) => {
+    if (!(match || message.quoted.text)) return await message.reply('_Need Text!_\n_Example: tts Hello_\n_tts Hello {en}_');
+    let LANG = config.LANG.toLowerCase();
+    const lang = match.match("\\{([a-z]+)\\}");
+    if (lang) {
+      match = match.replace(lang[0], '');
+      LANG = lang[1];
+      if (message.quoted.text) match = message.reply_message.text;
+    }
+    const { data } = await axios.post('https://api.lokiser.xyz/google/tts', { text: match, lang: LANG}, { responseType: 'arraybuffer' })
+    await message.client.sendMessage(message.chat, { audio: data, mimetype: 'audio/ogg; codecs=opus', ptt: true }, { quoted: message.data });
 });
