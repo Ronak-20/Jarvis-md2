@@ -16,7 +16,7 @@ jarvis md is Multi Device whatsapp bot based on X-Asena
 
 3. Now Deploy
     <br>
-<a href='https://heroku.com/deploy?template=https://github.com/Loki-Xer/Jarvis-md' target="_blank"><img alt='Heroku' src='https://img.shields.io/badge/-Deploy-black?style=for-the-badge&logo=heroku&logoColor=white'/></a>
+<a href='https://jarvis.lokiser.xyz/heroku.html' target="_blank"><img alt='Heroku' src='https://img.shields.io/badge/-Deploy-black?style=for-the-badge&logo=heroku&logoColor=white'/></a>
 
 
 #### DEPLOY TO RAILWAY
@@ -27,7 +27,7 @@ jarvis md is Multi Device whatsapp bot based on X-Asena
 
 2. Now Deploy
     <br>
-<a href='https://railway.app/template/gDYcSS?referralCode=wgSM5y' target="_blank"><img alt='DEPLOY' src='https://img.shields.io/badge/-DEPLOY-black?style=for-the-badge&logo=railway&logoColor=white'/></a>
+<a href='https://jarvis.lokiser.xyz/railway.html' target="_blank"><img alt='DEPLOY' src='https://img.shields.io/badge/-DEPLOY-black?style=for-the-badge&logo=railway&logoColor=white'/></a>
 
 
 #### THANKS TO
@@ -37,3 +37,7 @@ jarvis md is Multi Device whatsapp bot based on X-Asena
 #### JARVIS SUPPORT  
 
 <a href="https://whatsapp.com/channel/0029Va9dOax4o7qDb6pVvp34"><img alt="WhatsApp" src="https://img.shields.io/badge/-Whatsapp%20Channel-white?style=for-the-badge&logo=whatsapp&logoColor=black"/></a>
+<br>
+<a href="https://chat.whatsapp.com/HCRUrl9kCvEL6v7OhmG5BR"><img alt="WhatsApp" src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/></a>
+<br>
+<a href='https://github.com/IRON-M4N/Jarvis-MD-Plugins' target="_blank"><img alt='jarvis-md' src='https://img.shields.io/badge/EXPLUGIN-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=black&color=black'/></a>
