@@ -169,3 +169,24 @@ System({
     const { data } = await axios.post('https://api.lokiser.xyz/google/tts', { text: match, lang: LANG}, { responseType: 'arraybuffer' })
     await message.client.sendMessage(message.chat, { audio: data, mimetype: 'audio/ogg; codecs=opus', ptt: true }, { quoted: message.data });
 });
+
+
+System({
+    on: 'text',
+    dontAddCommandList: true,
+},async (message) => {
+    if (message.isBot || !message.reply_message.fromMe || !message.reply_message.text) return;
+    if (!message.body.includes('@') || !message.body.includes('‣')) return;
+    if (message.body.includes("1")) {
+    const text = message.body.split(" ");
+    const data = await postJson("https://api.lokiser.xyz/scraper/checkmail", { email: text[2] });
+    if (data.tempmail.length === 0) return message.reply("_*Mail box is empty*_");
+    const formattedResponse = `\n  *Temp Mail ✉️*\n\n${data.tempmail.map((mail, index) => `\n  • *From :* ${mail.from}\n  • *Subject :* ${mail.subject}\n  • *Date :* ${mail.date}\n  • *Id :* ${mail.id}\n  • *Mail Number:* ${index + 1}`).join("\n\n")}`;
+    await message.send(formattedResponse);
+    } else if (message.body.includes("2")) {
+    const { tempmail } = await getJson("https://api.lokiser.xyz/scraper/tempmail");
+    const user = await message.getName(message.sender);
+    const data = await postJson("https://api.lokiser.xyz/scraper/checkmail", { email: tempmail });
+    await message.send(`*_${tempmail}_*\n\n*Dear user, this is your temp mail*\n\n*User: ${user}*\n*Mail received: ${data.tempmail.length}*\n\n\`\`\`1 ‣\`\`\` *Check mail*\n\`\`\`2 ‣\`\`\` *Next mail*\n\n*_Send a Number as reply_*`);
+    }
+});
