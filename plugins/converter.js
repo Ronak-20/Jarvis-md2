@@ -170,16 +170,16 @@ System({
         }
 
         const file = './lib/system/media/black.jpg';
-        const audioFile = './lib/system/media/audio.mp3';
+        const audioFile = './lib/media/audio.mp3';
 
         fs.writeFileSync(audioFile, await message.reply_message.download());
 
         ffmpeg.input(file);
         ffmpeg.input(audioFile);
-        ffmpeg.output('./lib/system/media/videoMixed.mp4');
+        ffmpeg.output('./lib/media/videoMixed.mp4');
 
         ffmpeg.on('end', async () => {
-            await message.send(fs.readFileSync('./lib/system/media/videoMixed.mp4'), {}, 'video');
+            await message.send(fs.readFileSync('./lib/media/videoMixed.mp4'), {}, 'video');
         });
 
         ffmpeg.on('error', async (err) => {
