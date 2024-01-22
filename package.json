@@ -30,7 +30,6 @@
         "fluent-ffmpeg": "^2.1.2",
         "form-data": "^4.0.0",
         "fs-extra": "^11.1.1",
-        "g-i-s": "^2.1.6",
         "got": "^11.8.2",
         "heroku-client": "^3.1.0",
         "imgur": "^1.0.2",
