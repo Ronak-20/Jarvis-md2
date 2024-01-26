@@ -25,6 +25,7 @@ module.exports = {
   HANDLERS: process.env.HANDLER  || 'null',
   RMBG_KEY: process.env.RMBG_KEY || false,
   BRANCH: 'main',
+  PORT: toBool(process.env.PORT) || 8000,
   STICKER_PACKNAME: process.env.STICKER_PACKNAME || 'ᴊᴀʀᴠɪꜱ;ᴡᴀʙᴏᴛ',
   AUTO_STATUS_VIEWS: toBool(process.env.AUTO_STATUS_VIEWS || 'false'),
   WELCOME_MSG: process.env.WELCOME_MSG || 'Hi @user Welcome to @gname',
@@ -35,6 +36,6 @@ module.exports = {
   HEROKU_APP_NAME: process.env.HEROKU_APP_NAME || '',
   HEROKU_API_KEY: process.env.HEROKU_API_KEY || '',
   BOT_INFO: process.env.BOT_INFO || 'ᴊᴀʀᴠɪꜱ;ʟᴏᴋɪ-xᴇʀ;https://i.imgur.com/VIpl3q5.mp4',
-  WORK_TYPE: process.env.WORK_TYPE || '',
+  WORK_TYPE: process.env.WORK_TYPE || 'private',
   DATABASE: DATABASE_URL === "./database.db" ? new Sequelize({ dialect: "sqlite", storage: DATABASE_URL, logging: false }) : new Sequelize(DATABASE_URL, {dialect: "postgres", ssl: true, protocol: "postgres", dialectOptions: { native: true, ssl: { require: true, rejectUnauthorized: false },}, logging: false }),
 };
