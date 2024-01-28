@@ -37,7 +37,7 @@
         "HANDLER": {
             "description": "handler for bot. all so can be null or false",
             "required": true,
-            "value":"null"
+            "value":"."
         },
         "SESSION_ID": {
             "description": "session id",
