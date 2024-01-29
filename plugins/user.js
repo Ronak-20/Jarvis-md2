@@ -57,18 +57,6 @@ System({
 });
 
 System({
-	pattern: "restart",
-	fromMe: true,
-	desc: "for restart bot",
-	type: "user",
-}, async (message, match, m) => {
-    await message.send("_Restarting_");
-    exec("pm2 restart jarvis", (error, stdout, stderr) => {
-    if (error) { return message.send( `Error: ${error}`);
-    } return; });
-});
-
-System({
 	pattern: "reboot",
 	fromMe: true,
 	desc: "to reboot your bot",
