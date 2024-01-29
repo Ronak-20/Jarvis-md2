@@ -252,6 +252,7 @@ async (message, match) => {
             } else if (server === "koyeb") {
                 let check = await get_deployments();
                 if (check === 'true') return citel.reply('_Please wait..._\n_Currently 2 instances are running in Koyeb, wait to stop one of them._');
+                await message.send("_*Building started 𐍮*_")
                 let data = await redeploy();
                 return await message.reply("updateing started");
             } else {
@@ -263,7 +264,7 @@ async (message, match) => {
     } else if (commits.total === 0) {
             return await message.send(`_Jarvis is on the latest version: v${version}_`);
         } else {
-        var availupdate = "*Updates available for Jarvis* \n\n";
+        var availupdate = "*Updates available for Jarvis-md* \n\n";
         commits["all"].map((commit, num) => {
             availupdate += num + 1 + " ●  " + tiny(commit.message) + "\n";
         });
