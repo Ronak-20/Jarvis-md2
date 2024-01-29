@@ -12,7 +12,7 @@ Jarvis - Loki-Xer
 const got = require("got");
 const Heroku = require("heroku-client");
 const { version } = require("../package.json");
-const { System, isPrivate, tiny } = require("../lib/");
+const { System, isPrivate, updateBot,  tiny, redeploy , getvar , delvar , getallvar , change_env , get_deployments } = require("../lib/");
 const Config = require("../config");
 const { SUDO } = require("../config");
 const heroku = new Heroku({ token: Config.HEROKU_API_KEY });
@@ -21,7 +21,7 @@ const simpleGit = require("simple-git");
 const { secondsToDHMS } = require("../lib");
 const git = simpleGit();
 const exec = require("child_process").exec;
-
+const server = Config.SERVER
 
 
 System({
@@ -29,8 +29,8 @@ System({
     fromMe: true,
     type: "heroku",
     desc: "Dyno off",
-    type: "heroku",
 }, async (message) => {
+    if (server !== "heroku") await message.reply("_shutdown only works in Heroku_");
     await heroku.get(baseURI + "/formation").then(async (formation) => {
         await message.send(`_Jarvis is shutting down..._`);
         await heroku.patch(baseURI + "/formation/" + formation[0].id, {
@@ -43,8 +43,6 @@ System({
 });
 
 
-
-
 System({
     pattern: "setvar ",
     fromMe: true,
@@ -53,12 +51,16 @@ System({
 },
 async (message, match) => {
     if (!match)
-        return await message.send(`Example: .setvar SUDO:917025673121`);   
+        return await message.send(`Example: .setvar SUDO:917025673121`);
+    
     const key = match.slice(0, match.indexOf(':')).trim();
     const value = match.slice(match.indexOf(':') + 1).trim();
+    
     if (!key || !value)
         return await message.send(`Example: .setvar SUDO:917025673121`);
-    heroku.patch(baseURI + "/config-vars", {
+    
+    if (server === "heroku") {
+        heroku.patch(baseURI + "/config-vars", {
             body: {
                 [key.toUpperCase()]: value,
             },
@@ -69,6 +71,15 @@ async (message, match) => {
         .catch(async (error) => {
             await message.send(`HEROKU: ${error.body.message}`);
         });
+    } else if (server === "koyeb") {
+        let check = await get_deployments();
+        if (check === 'true')
+            return await message.reply('_Please wait..._\n_Currently 2 instances are running in Koyeb, wait to stop one of them._');
+        let data = await change_env(match);
+        return await message.reply(data);
+    } else {
+        await message.reply("setvar only works in Heroku or Koyeb");
+    }
 });
 
 
@@ -80,26 +91,38 @@ System({
 },
 async (message, match) => {
     if (!match) return await message.send("_Example: delvar sudo_");
-    heroku
-        .get(baseURI + "/config-vars")
-        .then(async (vars) => {
-            const key = match.trim().toUpperCase();
+    
+    if (server === "heroku") {
+        heroku
+            .get(baseURI + "/config-vars")
+            .then(async (vars) => {
+                const key = match.trim().toUpperCase();
 
-            if (vars[key]) {
-                await heroku.patch(baseURI + "/config-vars", {
-                    body: {
-                        [key]: null,
-                    },
-                });
+                if (vars[key]) {
+                    await heroku.patch(baseURI + "/config-vars", {
+                        body: {
+                            [key]: null,
+                        },
+                    });
 
-                return await message.send(`_Deleted ${key}_`);
-            }
+                    return await message.send(`_Deleted ${key}_`);
+                }
 
-            await message.send(`_${key} not found_`);
-        })
-        .catch(async (error) => {
-            await message.send(`*HEROKU: ${error.body.message}*`);
-        });
+                await message.send(`_${key} not found_`);
+            })
+            .catch(async (error) => {
+                await message.send(`*HEROKU: ${error.body.message}*`);
+            });
+    } else if (server === "koyeb") {
+        let check = await get_deployments();
+        if (check === 'true')
+            return await message.reply('_Please wait..._\n_Currently 2 instances are running in Koyeb, wait to stop one of them._');
+        
+        let data = await delvar(match);
+        return await message.reply(data);
+    } else {
+        await message.reply("delvar only works in Heroku or Koyeb");
+    }
 });
 
 
@@ -108,20 +131,101 @@ System({
     fromMe: true,
     type: "heroku",
     desc: "Heroku all environment variables",
-},
-async (message) => {
-    let msg = "Here are all your Heroku vars\n\n\n";
+}, async (message) => {
+    if (server === "heroku") {
+        let msg = "Here are all your Heroku vars\n\n\n";
 
-    try {
-        const keys = await heroku.get(baseURI + "/config-vars");
+        try {
+            const keys = await heroku.get(baseURI + "/config-vars");
 
-        for (const key in keys) {
-            msg += `${key} : ${keys[key]}\n\n`;
+            for (const key in keys) {
+                msg += `${key} : ${keys[key]}\n\n`;
+            }
+
+            await message.send(msg);
+        } catch (error) {
+            await message.send(`HEROKU: ${error.message}`);
         }
+    } else if (server === "koyeb") {
+        let data = await getallvar();
+        return await message.reply(data);
+    } else {
+        await message.reply("allvar only works in Heroku or Koyeb");
+    }
+});
 
-        await message.send(msg + "");
-    } catch (error) {
-        await message.send(`HEROKU: ${error.message}`);
+
+System({
+    pattern: "getvar ",
+    fromMe: true,
+    type: "heroku",
+    desc: "Show Heroku env",
+}, async (message, match) => {
+    if (!match) return await message.send(`_Example: getvar sudo_`);
+    
+    if (server === "heroku") {
+        const key = match.trim().toUpperCase();
+        
+        heroku
+            .get(baseURI + "/config-vars")
+            .then(async (vars) => {
+                if (vars[key]) {
+                    return await message.send(`_${key} : ${vars[key]}_`);
+                }
+                await message.send(`${key} not found`);
+            })
+            .catch(async (error) => {
+                await message.send(`HEROKU: ${error.body.message}`);
+            });
+    } else if (server === "koyeb") {
+        let data = await getvar(match);
+        return await message.reply(data);
+    } else {
+        await message.reply("getvar only works in Heroku or Koyeb");
+    }
+});
+
+
+System({
+    pattern: "getsudo ?(.*)", 
+    fromMe: true, 
+    desc: "shows sudo", 
+    type: "Human tool" 
+ }, async (message, match) => {
+    await message.send("_*SUDO NUMBER'S ARA :*_ "+"```"+config.SUDO+"```")
+  });
+
+
+System({
+    pattern: "setsudo ?(.*)", 
+    fromMe: true, 
+    desc: "set sudo", 
+    type: "user" 
+}, async (message, match, m) => {
+    var newSudo = (message.mention[0] || message.reply_message.sender).split("@")[0];
+    
+    if (!newSudo)
+        return await m.reply("*reply to a number*");
+
+    var setSudo = (Config.SUDO + "," + newSudo).replace(/,,/g, ",");
+    setSudo = setSudo.startsWith(",") ? setSudo.replace(",", "") : setSudo;
+
+    if (server === "heroku") {
+        await heroku.patch(baseURI + "/config-vars", { body: { SUDO: setSudo } })
+            .then(async (app) => {
+                await message.reply("*new sudo numbers are :* " + setSudo);
+                await message.reply("_It takes 30 seconds to take effect_");
+            });
+    } else if (server === "koyeb") {
+        let check = await get_deployments();
+        if (check === 'true')
+            return await message.reply('_Please wait..._\n_Currently 2 instances are running in Koyeb, wait to stop one of them._');
+        
+        let data = await change_env("SUDO:" + setSudo);
+        await message.reply("*new sudo numbers are :* " + setSudo);
+        await message.reply("_It takes 30 seconds to take effect_");
+    } else {
+        await message.send("setsudo only works in Heroku or Koyeb");
     }
 });
 
@@ -133,53 +237,32 @@ System({
     desc: "Checks for update.",
 },
 async (message, match) => {
-    let { prefix } = message;
+    await git.fetch();
+    var commits = await git.log([
+        Config.BRANCH + "..origin/" + Config.BRANCH,
+    ]);
 
-    if (match === "now") {
-        await git.fetch();
-        var commits = await git.log([
-            Config.BRANCH + "..origin/" + Config.BRANCH,
-        ]);
-
+    if (match == "now") {
         if (commits.total === 0) {
             return await message.send(`_Jarvis is on the latest version: v${version}_`);
         } else {
-            await message.reply("  _Jarvis is updating_");
-
-            try {
-                var app = await heroku.get("/apps/" + Config.HEROKU_APP_NAME);
-            } catch {
-                await message.send("_Invalid Heroku Details_");
-                await new Promise((r) => setTimeout(r, 1000));
+            if (server === "heroku") {
+                await updateBot();
+            } else if (server === "koyeb") {
+                let check = await get_deployments();
+                if (check === 'true') return citel.reply('_Please wait..._\n_Currently 2 instances are running in Koyeb, wait to stop one of them._');
+                let data = await redeploy();
+                return await message.reply("updateing started");
+            } else {
+                await require("simple-git")().reset("hard", ["HEAD"]);
+                await require("simple-git")().pull();
+                await message.send("_Successfully updated. Please manually update npm modules if applicable!_");
             }
-
-            git.fetch("upstream", Config.BRANCH);
-            git.reset("hard", ["FETCH_HEAD"]);
-
-            var git_url = app.git_url.replace(
-                "https://",
-                "https://api:" + Config.HEROKU_API_KEY + "@"
-            );
-
-            try {
-                await git.addRemote("heroku", git_url);
-            } catch {
-                console.log("heroku remote error");
-            }
-
-            await git.push("heroku", Config.BRANCH);
-            await message.send("  _JARVIS IS UPDATED_");
         }
-    }
-
-    await git.fetch();
-    var commits = await git.log([Config.BRANCH + "..origin/" + Config.BRANCH]);
-
-    if (commits.total === 0) {
-        await message.send("_Already on the latest version_");
-    } else {
-        var availupdate = "*ᴜᴘᴅᴀᴛᴇs ᴀᴠᴀɪʟᴀʙʟᴇ ꜰᴏʀ ᴊᴀʀᴠɪꜱ* \n\n";
-
+    } else if (commits.total === 0) {
+            return await message.send(`_Jarvis is on the latest version: v${version}_`);
+        } else {
+        var availupdate = "*Updates available for Jarvis* \n\n";
         commits["all"].map((commit, num) => {
             availupdate += num + 1 + " ●  " + tiny(commit.message) + "\n";
         });
@@ -190,3 +273,23 @@ async (message, match) => {
     }
 });
 
+System({
+    pattern: "restart",
+    fromMe: true,
+    desc: "for restart bot",
+    type: "user",
+}, async (message, match, m) => {
+    await message.send("_Restarting_");
+    if (server === "heroku") {
+        await heroku.delete(baseURI + "/dynos").catch(async (error) => {
+            await message.sendMessage(`HEROKU : ${error.body.message}`);
+        });
+    } else {
+        exec("pm2 restart jarvis", (error, stdout, stderr) => {
+            if (error) {
+                return message.send(`Error: ${error}`);
+            }
+            return;
+        });
+    }
+});
