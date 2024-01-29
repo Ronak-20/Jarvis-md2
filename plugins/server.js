@@ -147,8 +147,9 @@ System({
             await message.send(`HEROKU: ${error.message}`);
         }
     } else if (server === "koyeb") {
+        let msg = "Here ara all your Koyeb vars\n\n"
         let data = await getallvar();
-        return await message.reply(data);
+        return await message.reply(msg + data);
     } else {
         await message.reply("allvar only works in Heroku or Koyeb");
     }
