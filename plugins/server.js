@@ -11,9 +11,7 @@ Jarvis - Loki-Xer
 
 const got = require("got");
 const Heroku = require("heroku-client");
-const {
-    version
-} = require("../package.json");
+const { version } = require("../package.json");
 const { System, isPrivate, tiny } = require("../lib/");
 const Config = require("../config");
 const { SUDO } = require("../config");
