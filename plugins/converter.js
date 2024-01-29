@@ -169,7 +169,7 @@ System({
             return await message.send("_Reply to an audio message_");
         }
 
-        const file = './lib/system/media/black.jpg';
+        const file = './lib/media/black.jpg';
         const audioFile = './lib/media/audio.mp3';
 
         fs.writeFileSync(audioFile, await message.reply_message.download());
