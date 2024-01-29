@@ -11,26 +11,14 @@ Jarvis - Loki-Xer
 
 const got = require("got");
 const Heroku = require("heroku-client");
-const {
-        version
-} = require("../package.json");
-const {
-	System,
-	isPrivate,
-	tiny
-} = require("../lib/");
+const { version } = require("../package.json");
+const { System, isPrivate, tiny } = require("../lib/");
 const Config = require("../config");
-const {
-	SUDO
-} = require("../config");
-const heroku = new Heroku({
-	token: Config.HEROKU_API_KEY
-});
+const { SUDO } = require("../config");
+const heroku = new Heroku({ token: Config.HEROKU_API_KEY });
 const baseURI = "/apps/" + Config.HEROKU_APP_NAME;
 const simpleGit = require("simple-git");
-const {
-	secondsToDHMS
-} = require("../lib");
+const { secondsToDHMS } = require("../lib");
 const git = simpleGit();
 const exec = require("child_process").exec;
 
