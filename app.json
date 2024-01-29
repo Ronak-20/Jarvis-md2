@@ -24,6 +24,11 @@
             "required": true,
             "value":"3"
         },
+        "SERVER": {
+            "description": "delpoying server",
+            "required": true,
+            "value":"heroku"
+        },
         "AUTO_STATUS_VIEWS": {
             "description": "auto status views",
             "required": true,
