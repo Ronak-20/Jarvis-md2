@@ -27,8 +27,8 @@ const server = Config.SERVER
 System({
     pattern: "shutdown",
     fromMe: true,
-    type: "heroku",
-    desc: "Dyno off",
+    type: "server",
+    desc: "Heroku Dyno off",
 }, async (message) => {
     if (server !== "heroku") await message.reply("_shutdown only works in Heroku_");
     await heroku.get(baseURI + "/formation").then(async (formation) => {
@@ -46,8 +46,8 @@ System({
 System({
     pattern: "setvar ",
     fromMe: true,
-    type: "heroku",
-    desc: "Set Heroku environment variable",
+    type: "server",
+    desc: "Set environment variable",
 },
 async (message, match) => {
     if (!match)
@@ -86,8 +86,8 @@ async (message, match) => {
 System({
     pattern: "delvar ",
     fromMe: true,
-    type: "heroku",
-    desc: "Delete Heroku environment variable",
+    type: "server",
+    desc: "Delete environment variable",
 },
 async (message, match) => {
     if (!match) return await message.send("_Example: delvar sudo_");
@@ -129,8 +129,8 @@ async (message, match) => {
 System({
     pattern: "allvar",
     fromMe: true,
-    type: "heroku",
-    desc: "Heroku all environment variables",
+    type: "server",
+    desc: "all environment variables",
 }, async (message) => {
     if (server === "heroku") {
         let msg = "Here are all your Heroku vars\n\n\n";
@@ -159,8 +159,8 @@ System({
 System({
     pattern: "getvar ",
     fromMe: true,
-    type: "heroku",
-    desc: "Show Heroku env",
+    type: "server",
+    desc: "Show env",
 }, async (message, match) => {
     if (!match) return await message.send(`_Example: getvar sudo_`);
     
@@ -191,7 +191,7 @@ System({
     pattern: "getsudo ?(.*)", 
     fromMe: true, 
     desc: "shows sudo", 
-    type: "Human tool" 
+    type: "server" 
  }, async (message, match) => {
     await message.send("_*SUDO NUMBER'S ARA :*_ "+"```"+config.SUDO+"```")
   });
@@ -201,7 +201,7 @@ System({
     pattern: "setsudo ?(.*)", 
     fromMe: true, 
     desc: "set sudo", 
-    type: "user" 
+    type: "server" 
 }, async (message, match, m) => {
     var newSudo = (message.mention[0] || message.reply_message.sender).split("@")[0];
     
@@ -234,7 +234,7 @@ System({
 System({
     pattern: "update",
     fromMe: true,
-    type: "heroku",
+    type: "server",
     desc: "Checks for update.",
 },
 async (message, match) => {
@@ -278,7 +278,7 @@ System({
     pattern: "restart",
     fromMe: true,
     desc: "for restart bot",
-    type: "user",
+    type: "server",
 }, async (message, match, m) => {
     await message.send("_Restarting_");
     if (server === "heroku") {
