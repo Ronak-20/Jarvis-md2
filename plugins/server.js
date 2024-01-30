@@ -12,7 +12,7 @@ Jarvis - Loki-Xer
 const got = require("got");
 const Heroku = require("heroku-client");
 const { version } = require("../package.json");
-const { System, isPrivate, updateBot,  tiny, redeploy , getvar , delvar , getallvar , change_env , get_deployments, getJson } = require("../lib/");
+const { System, isPrivate, updateBot, tiny, redeploy, getvar, sleep, delvar, getallvar, change_env, get_deployments, getJson } = require("../lib/");
 const Config = require("../config");
 const { SUDO } = require("../config");
 const heroku = new Heroku({ token: Config.HEROKU_API_KEY });
@@ -329,10 +329,9 @@ System({
 }, async (message) => {
   if (server === "render") {
     if (!serverUrl) return;
-    await sleep(3000);
     const data = await getJson(serverUrl);
     console.log(data);
-    await sleep(5000);
+    await sleep(3000);
   } else {
     return;
   }
