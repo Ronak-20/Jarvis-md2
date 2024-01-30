@@ -63,7 +63,7 @@ async (message, match) => {
         return await message.send(`Example: .setvar SUDO:917025673121`);
         
     if (server !== "heroku" && server !== "koyeb") {
-        return await message.reply("setvar only works in Heroku or Koyeb");
+        return await message.reply("_setvar only works in Heroku or Koyeb_");
     }
     
     if (server === "heroku") {
@@ -99,7 +99,7 @@ async (message, match) => {
     if (!match) return await message.send("_Example: delvar sudo_");
     
     if (server !== "heroku" && server !== "koyeb") {
-        return await message.reply("delvar only works in Heroku or Koyeb");
+        return await message.reply("_delvar only works in Heroku or Koyeb_");
     }
     
     if (server === "heroku") {
@@ -142,7 +142,7 @@ System({
     desc: "all environment variables",
 }, async (message) => {
     if (server !== "heroku" && server !== "koyeb") {
-        await message.reply("allvar only works in Heroku or Koyeb");
+        await message.reply("_allvar only works in Heroku or Koyeb_");
         return;
     }
     
@@ -178,7 +178,7 @@ System({
     if (!match) return await message.send(`_Example: getvar sudo_`);
     
     if (server !== "heroku" && server !== "koyeb") {
-        await message.reply("getvar only works in Heroku or Koyeb");
+        await message.reply("_getvar only works in Heroku or Koyeb_");
         return;
     }
     
@@ -305,7 +305,7 @@ System({
     desc: "for restart bot",
     type: "server",
 }, async (message, match, m) => {
-    await message.send("_Restarting_");
+    await message.send("_*Restarting*_");
     if (server === "heroku") {
         await heroku.delete(baseURI + "/dynos").catch(async (error) => {
             await message.sendMessage(`HEROKU : ${error.body.message}`);
