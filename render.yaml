@@ -11,3 +11,27 @@ services:
     envVars:
       - key: SESSION_ID
         sync: false
+      - key: BOT_INFO
+        value: ᴊᴀʀᴠɪꜱ;ʟᴏᴋɪ-xᴇʀ;https://i.imgur.com/VIpl3q5.mp4
+        sync: false
+      - key: WARN_COUNT
+        value: 3
+        sync: false
+      - key: AUTO_STATUS_VIEWS
+        value: false
+        sync: false
+      - key: MEDIA_DATA
+        value: ʟɪꜱᴛ ᴍᴇɴᴜ;ᴊᴀʀᴠɪꜱ-ᴍᴅ;https://i.imgur.com/ltPPMTh.jpeg
+        sync: false
+      - key: HANDLER
+        value: /
+        sync: false
+      - key: WORK_TYPE
+        value: private
+        sync: false
+      - key: STICKER_PACKNAME
+        value: ʟᴏᴋɪ;xᴇʀ
+        sync: false
+      - key: SUDO
+        value: 917025673121
+        sync: false
