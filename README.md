@@ -40,9 +40,36 @@ jarvis md is Multi Device whatsapp bot based on X-Asena
 4. Get [Koyeb api key](https://app.koyeb.com/account/api)
 
 2. Now Deploy
-    <br>
+  <br>
 <a href='https://jarvis.lokiser.xyz/koyeb.html' target="_blank"><img alt='DEPLOY' src='https://img.shields.io/badge/-DEPLOY-black?style=for-the-badge&logo=koyeb&logoColor=white'/></a>
 
+### DEPLOY TO RENDER 
+
+1. If You don't have a account in render. Create a account.
+    <br>
+<a href='https://dashboard.render.com/register' target="_blank"><img alt='render' src='https://img.shields.io/badge/-Create-black?style=for-the-badge&logo=render&logoColor=white'/></a>
+
+3. Get [DATABASE_URL](https://github.com/Loki-Xer/jarvis-md/wiki/Data-base-url) and copy it
+
+2. Now Deploy
+    <br>
+<a href='https://jarvis.lokiser.xyz/render.html' target="_blank"><img alt='DEPLOY' src='https://img.shields.io/badge/-DEPLOY-black?style=for-the-badge&logo=render&logoColor=white'/></a>
+
+<details close>
+    
+<summary>Read More</summary>
+
+### 1. Customise Bot
+
+ Go to Environment Variables and editi and use
+
+### 2. To Run Bot 24×7
+    
+ Copy the web url and add to the Environment Variables as SERVERURL
+   
+
+  </details>
+ 
 
 #### THANKS TO
 - [INRL ❤️](https://github.com/inrl-official) <br>
@@ -50,7 +77,8 @@ jarvis md is Multi Device whatsapp bot based on X-Asena
 
 #### JARVIS SUPPORT 
 
-<details close>
+
+
 <summary>Read More</summary>
     <br>
 <a href="https://whatsapp.com/channel/0029Va9dOax4o7qDb6pVvp34"><img alt="WhatsApp" src="https://img.shields.io/badge/-Whatsapp%20Channel-white?style=for-the-badge&logo=whatsapp&logoColor=black"/></a>
