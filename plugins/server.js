@@ -270,7 +270,7 @@ async (message, match) => {
             return await message.send(`_Jarvis is on the latest version: v${version}_`);
         } else {
             if (server === "heroku") {
-                await updateBot();
+                await updateBot(message);
             } else if (server === "koyeb") {
                 await message.send("_*Building started 𐍮*_")
                 let check = await get_deployments();
