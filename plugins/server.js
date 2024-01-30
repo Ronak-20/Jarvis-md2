@@ -24,13 +24,15 @@ const exec = require("child_process").exec;
 const server = Config.SERVER
 
 
+
 System({
     pattern: "shutdown",
     fromMe: true,
     type: "server",
     desc: "Heroku Dyno off",
 }, async (message) => {
-    if (server !== "heroku") await message.reply("_shutdown only works in Heroku_");
+    if (server !== "heroku") return await message.reply("_shutdown only works in Heroku_");
+    
     await heroku.get(baseURI + "/formation").then(async (formation) => {
         await message.send(`_Jarvis is shutting down..._`);
         await heroku.patch(baseURI + "/formation/" + formation[0].id, {
@@ -41,6 +43,7 @@ System({
         await message.send(`HEROKU: ${error.body.message}`);
     });
 });
+
 
 
 System({
@@ -58,9 +61,13 @@ async (message, match) => {
     
     if (!key || !value)
         return await message.send(`Example: .setvar SUDO:917025673121`);
+        
+    if (server !== "heroku" && server !== "koyeb") {
+        return await message.reply("setvar only works in Heroku or Koyeb");
+    }
     
     if (server === "heroku") {
-        heroku.patch(baseURI + "/config-vars", {
+        await heroku.patch(baseURI + "/config-vars", {
             body: {
                 [key.toUpperCase()]: value,
             },
@@ -77,10 +84,9 @@ async (message, match) => {
             return await message.reply('_Please wait..._\n_Currently 2 instances are running in Koyeb, wait to stop one of them._');
         let data = await change_env(match);
         return await message.reply(data);
-    } else {
-        await message.reply("setvar only works in Heroku or Koyeb");
     }
 });
+
 
 
 System({
@@ -91,6 +97,10 @@ System({
 },
 async (message, match) => {
     if (!match) return await message.send("_Example: delvar sudo_");
+    
+    if (server !== "heroku" && server !== "koyeb") {
+        return await message.reply("delvar only works in Heroku or Koyeb");
+    }
     
     if (server === "heroku") {
         heroku
@@ -120,10 +130,9 @@ async (message, match) => {
         
         let data = await delvar(match);
         return await message.reply(data);
-    } else {
-        await message.reply("delvar only works in Heroku or Koyeb");
     }
 });
+
 
 
 System({
@@ -132,6 +141,11 @@ System({
     type: "server",
     desc: "all environment variables",
 }, async (message) => {
+    if (server !== "heroku" && server !== "koyeb") {
+        await message.reply("allvar only works in Heroku or Koyeb");
+        return;
+    }
+    
     if (server === "heroku") {
         let msg = "Here are all your Heroku vars\n\n\n";
 
@@ -147,11 +161,9 @@ System({
             await message.send(`HEROKU: ${error.message}`);
         }
     } else if (server === "koyeb") {
-        let msg = "Here ara all your Koyeb vars\n\n"
+        let msg = "Here are all your Koyeb vars\n\n";
         let data = await getallvar();
         return await message.reply(msg + data);
-    } else {
-        await message.reply("allvar only works in Heroku or Koyeb");
     }
 });
 
@@ -164,6 +176,11 @@ System({
     desc: "Show env",
 }, async (message, match) => {
     if (!match) return await message.send(`_Example: getvar sudo_`);
+    
+    if (server !== "heroku" && server !== "koyeb") {
+        await message.reply("getvar only works in Heroku or Koyeb");
+        return;
+    }
     
     if (server === "heroku") {
         const key = match.trim().toUpperCase();
@@ -182,10 +199,9 @@ System({
     } else if (server === "koyeb") {
         let data = await getvar(match);
         return await message.reply(data);
-    } else {
-        await message.reply("getvar only works in Heroku or Koyeb");
     }
 });
+
 
 
 System({
@@ -196,6 +212,7 @@ System({
  }, async (message, match) => {
     await message.send("_*SUDO NUMBER'S ARA :*_ "+"```"+config.SUDO+"```")
   });
+
 
 
 System({
@@ -211,7 +228,12 @@ System({
 
     var setSudo = (Config.SUDO + "," + newSudo).replace(/,,/g, ",");
     setSudo = setSudo.startsWith(",") ? setSudo.replace(",", "") : setSudo;
-
+    
+    if (server !== "heroku" && server !== "koyeb") {
+        await message.send("setsudo only works in Heroku or Koyeb");
+        return;
+    }
+    
     if (server === "heroku") {
         await heroku.patch(baseURI + "/config-vars", { body: { SUDO: setSudo } })
             .then(async (app) => {
@@ -226,10 +248,9 @@ System({
         let data = await change_env("SUDO:" + setSudo);
         await message.reply("*new sudo numbers are :* " + setSudo);
         await message.reply("_It takes 30 seconds to take effect_");
-    } else {
-        await message.send("setsudo only works in Heroku or Koyeb");
     }
 });
+
 
 
 System({
@@ -275,6 +296,8 @@ async (message, match) => {
         });
     }
 });
+
+
 
 System({
     pattern: "restart",
