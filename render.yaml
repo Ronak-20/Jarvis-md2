@@ -25,5 +25,7 @@ services:
         sync: false
       - key: STICKER_PACKNAME
         sync: false
+      - key: AUDIO_DATA
+        sync: false
       - key: SUDO
         sync: false
