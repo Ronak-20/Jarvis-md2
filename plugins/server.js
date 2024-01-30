@@ -272,9 +272,9 @@ async (message, match) => {
             if (server === "heroku") {
                 await updateBot();
             } else if (server === "koyeb") {
+                await message.send("_*Building started 𐍮*_")
                 let check = await get_deployments();
                 if (check === 'true') return citel.reply('_Please wait..._\n_Currently 2 instances are running in Koyeb, wait to stop one of them._');
-                await message.send("_*Building started 𐍮*_")
                 let data = await redeploy();
                 return await message.reply("updateing started");
             } else {
