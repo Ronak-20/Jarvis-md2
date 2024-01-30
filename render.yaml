@@ -3,8 +3,11 @@ services:
     name: sample
     env: node
     branch: main
+    repo: https://github.com/Loki-Xer/jarvis-md.git
     buildCommand: npm install
-    startCommand: node app.js    
+    startCommand: node app.js   
+    plan: free
+    autoDeploy: false
     envVars:
       - key: SESSION_ID
         value: <enter-value-here>
