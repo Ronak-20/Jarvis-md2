@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: sample
+    name: jarvis-md
     env: node
     branch: main
     repo: https://github.com/Loki-Xer/jarvis-md.git
