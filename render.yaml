@@ -14,7 +14,7 @@ services:
       - key: BOT_INFO
         sync: false
       - key: SERVER
-        value: "render"
+        sync: false
       - key: SERVERURL
         sync: true
       - key: WARN_COUNT
