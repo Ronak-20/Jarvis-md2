@@ -32,4 +32,6 @@ services:
       - key: SUDO
         sync: false
       - key: SERVERURL
-        value: 
+        value:
+      - key: DATABASE_URL
+        sync: false
