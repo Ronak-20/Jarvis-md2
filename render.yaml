@@ -10,4 +10,4 @@ services:
     autoDeploy: false
     envVars:
       - key: SESSION_ID
-        value: true
+        sync: false
