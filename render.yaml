@@ -15,6 +15,7 @@ services:
         sync: false
       - key: WARN_COUNT
         value: 2
+        sync: true
       - key: AUTO_STATUS_VIEWS
         sync: false
       - key: MEDIA_DATA
