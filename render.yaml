@@ -14,8 +14,8 @@ services:
       - key: BOT_INFO
         sync: false
       - key: WARN_COUNT
-        value: 2
         sync: false
+        value: 2
       - key: AUTO_STATUS_VIEWS
         sync: false
       - key: MEDIA_DATA
