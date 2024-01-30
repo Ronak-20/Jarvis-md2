@@ -12,25 +12,25 @@ services:
       - key: SESSION_ID
         sync: false
       - key: BOT_INFO
-        sync: false
+        value: ᴊᴀʀᴠɪꜱ;ʟᴏᴋɪ-xᴇʀ;https://i.imgur.com/VIpl3q5.mp4
       - key: WARN_COUNT
-        sync: false
+        value: 3
       - key: AUTO_STATUS_VIEWS
-        sync: false
+        value: false
       - key: MEDIA_DATA
-        sync: false
+        value: ʟɪꜱᴛ ᴍᴇɴᴜ;ᴊᴀʀᴠɪꜱ-ᴍᴅ;https://i.imgur.com/ltPPMTh.jpeg
       - key: HANDLER
-        sync: false
+        value: /
       - key: WORK_TYPE
-        sync: false
+        value: private
       - key: SERVER
         value: render
       - key: STICKER_PACKNAME
-        sync: false
+        value: ʟᴏᴋɪ;xᴇʀ
       - key: AUDIO_DATA
-        sync: false
+        value: ʟᴏᴋɪ-xᴇʀ;ᴊᴀʀᴠɪꜱ;https://i.imgur.com/VgxJeCm.jpeg
       - key: SUDO
-        sync: false
+        value: 917025673121
       - key: SERVERURL
         value:
       - key: DATABASE_URL
