@@ -14,7 +14,7 @@ services:
       - key: BOT_INFO
         sync: false
       - key: SERVER
-        value: render
+        value: "render"
       - key: SERVERURL
         sync: true
       - key: WARN_COUNT
@@ -33,3 +33,11 @@ services:
         sync: false
       - key: SUDO
         sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: PostgreSQL
+          property: connectionString
+
+databases:
+  - name: PostgreSQL
+    plan: free
