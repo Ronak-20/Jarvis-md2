@@ -78,7 +78,7 @@ jarvis md is Multi Device whatsapp bot based on X-Asena
 #### JARVIS SUPPORT 
 
 
-
+<details close>
 <summary>Read More</summary>
     <br>
 <a href="https://whatsapp.com/channel/0029Va9dOax4o7qDb6pVvp34"><img alt="WhatsApp" src="https://img.shields.io/badge/-Whatsapp%20Channel-white?style=for-the-badge&logo=whatsapp&logoColor=black"/></a>
