@@ -23,6 +23,8 @@ services:
         sync: false
       - key: WORK_TYPE
         sync: false
+      - key: SERVERURL
+        sync: true
       - key: STICKER_PACKNAME
         sync: false
       - key: AUDIO_DATA
