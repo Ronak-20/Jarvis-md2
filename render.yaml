@@ -10,4 +10,3 @@ services:
     autoDeploy: false
     envVars:
       - key: SESSION_ID
-        value: <enter-value-here>
