@@ -5,7 +5,7 @@ services:
     branch: main
     repo: https://github.com/Loki-Xer/jarvis-md.git
     buildCommand: npm install
-    startCommand: node app.js   
+    startCommand: npm start
     plan: free
     autoDeploy: false
     envVars:
