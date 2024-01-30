@@ -29,7 +29,3 @@ services:
         sync: false
       - key: SUDO
         sync: false
-      - key: SERVERURL
-        sync: true
-      - key: SERVER
-        sync: false
