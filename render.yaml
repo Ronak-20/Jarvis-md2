@@ -33,11 +33,3 @@ services:
         sync: false
       - key: SUDO
         sync: false
-      - key: DATABASE_URL
-        fromDatabase:
-          name: PostgreSQL
-          property: connectionString
-
-databases:
-  - name: PostgreSQL
-    plan: free
