@@ -10,5 +10,3 @@ services:
   envVars:
   - key: SESSION_ID
     sync: true
-  - key: HANDLER
-    sync: .
