@@ -331,7 +331,7 @@ System({
     if (!serverUrl) return;
     const data = await getJson(serverUrl);
     console.log(data);
-    await sleep(3000);
+    await sleep(1000);
   } else {
     return;
   }
