@@ -128,10 +128,5 @@ System({
     desc: "get view ones message",
     type: "user",
 }, async (message, match, m) => {
-    try {
         await getvv(message, match, m);
-    } catch (error) {
-        console.error("Error in getvv function:", error);
-        await message.send("_*Reply to a view once message*_);
-    }
 });
