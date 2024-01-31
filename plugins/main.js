@@ -85,20 +85,6 @@ System({
 });
 
 System({
-    pattern: "vv",
-    fromMe: true,
-    desc: "get view ones message",
-    type: "user",
-}, async (message, match, m) => {
-    try {
-        await getvv(message, match, m);
-    } catch (error) {
-        console.error("Error in getvv function:", error);
-        await message.send("_*Reply to a view once message*_);
-    }
-});
-
-System({
 	pattern: "list",
 	fromMe: isPrivate,
 	desc: "Show All commands",
@@ -134,4 +120,18 @@ System({
 	type: "converter",
 }, async (message, match, m) => {
 	await sendUrl(message, match, m)
+});
+
+System({
+    pattern: "vv",
+    fromMe: true,
+    desc: "get view ones message",
+    type: "user",
+}, async (message, match, m) => {
+    try {
+        await getvv(message, match, m);
+    } catch (error) {
+        console.error("Error in getvv function:", error);
+        await message.send("_*Reply to a view once message*_);
+    }
 });
