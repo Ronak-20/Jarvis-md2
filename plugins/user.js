@@ -78,11 +78,10 @@ System({
 
 System({
     pattern: "lastseen", 
-    fromMe: isPrivate,
-    desc: "To change lastseen", 
+    fromMe: true,
+    desc: "To change privacy of last seen", 
     type: "user"
-},
-async (message, match) => {
+}, async (message, match) => {
     let updateType, responseMessage;
 
     switch (match) {
