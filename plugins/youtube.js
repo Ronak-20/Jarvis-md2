@@ -203,9 +203,9 @@ System({
       if (isUrl(match)) {
         return await message.reply("_Only *Query* will work *e.g : heat waves*_");
       } else {
-        const yt = await Ytsearch(match);
+        const yt = await lib.Ytsearch("ena sona");
         await message.client.sendMessage(message.from, {
-          text: `*_${yt.title}_*\n\n\n\`\`\`1. ⬢ audio\`\`\`\n\`\`\`2. ⬢ video\`\`\`\n\n_*Send a number as a reply to download*_`,
+          text: `*_${yt.title}_*\n\n\n\`\`\`1.⬢\`\`\` *audio*\n\`\`\`2.⬢\`\`\` *video*\n\n_*Send a number as a reply to download*_`,
           contextInfo: {
             externalAdReply: {
               title: yt.author.name,
@@ -228,12 +228,13 @@ System({
 
 System({
   on: 'text',
+  fromMe: isPrivate,
   dontAddCommandList: true,
 }, async (message) => {
   if (message.isBot) return;
   if (!message.reply_message.fromMe || !message.reply_message.text) return;
   let match = message.body.replace('⬢', '');
-  if (message.body.includes('⬢ audio')) {
+  if (message.body.includes('1. ⬢')) {
     const ytAudio = await Ytsearch(match);
     const msg = await message.send(`_*Now playing : ${ytAudio.title} 🎶*_`);
     const data = config.AUDIO_DATA.split(';');
@@ -261,7 +262,7 @@ System({
         }
       }
     }, { quoted: msg });
-  } else if (message.body.includes('⬢ video')) {
+  } else if (message.body.includes('2. ⬢')) {
     const data = await Ytsearch(match);
     const q = await message.send(`_*Now playing : ${data.title} 🎶*_`);
     await message.send(
