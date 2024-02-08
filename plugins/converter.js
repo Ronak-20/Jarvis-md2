@@ -197,18 +197,25 @@ System({
     }
 });
 
+
 System({
     pattern: "round",
     fromMe: isPrivate,
     desc: "Changes photo to sticker",
     type: "converter",
 }, async (message, text, msg, client) => {
-if (!(message.reply_message.sticker || message.reply_message.image)) {
-   return await message.reply("_*Reply to photo or sticker*_");
-	}
-   const buffer = await await Round(msg);
-   await client.sendMessage(msg.chat, {sticker: buffer}, {quoted: msg });
+    try {
+        if (!(message.reply_message.sticker || message.reply_message.image)) {
+            return await message.reply("_*Reply to photo or sticker*_");
+        }
+        const buffer = await Round(msg);
+        await client.sendMessage(msg.chat, {sticker: buffer}, {quoted: msg });
+    } catch (error) {
+        console.error("Error in round conversion:", error);
+        await message.reply("_*Error converting sticker*_");
+    }
 });
+
 
 System({
     pattern: "circle",
@@ -216,12 +223,18 @@ System({
     desc: "Changes photo to sticker",
     type: "converter",
 }, async (message, text, msg, client) => {
-if (!(message.reply_message.sticker || message.reply_message.image)) {
-   return await message.reply("_*Reply to photo or sticker*_");
-	}
-   const buffer = await await Circle(msg);
-   await client.sendMessage(msg.chat, {sticker: buffer}, {quoted: msg });
+    try {
+        if (!(message.reply_message.sticker || message.reply_message.image)) {
+            return await message.reply("_*Reply to photo or sticker*_");
+        }
+        const buffer = await Circle(msg);
+        await client.sendMessage(msg.chat, {sticker: buffer}, {quoted: msg });
+    } catch (error) {
+        console.error("Error in circle conversion:", error);
+        await message.reply("_*Error converting sticker*_");
+    }
 });
+
 
 System({
     pattern: "crop",
@@ -229,9 +242,15 @@ System({
     desc: "Changes photo to sticker",
     type: "converter",
 }, async (message, text, msg, client) => {
-if (!(message.reply_message.sticker || message.reply_message.image)) {
-   return await message.reply("_*Reply to photo or sticker*_");
-	}
-   const buffer = await await Crop(msg);
-   await client.sendMessage(msg.chat, {sticker: buffer}, {quoted: msg });
+    try {
+        if (!(message.reply_message.sticker || message.reply_message.image)) {
+            return await message.reply("_*Reply to photo or sticker*_");
+        }
+        const buffer = await Crop(msg);
+        await client.sendMessage(msg.chat, {sticker: buffer}, {quoted: msg });
+    } catch (error) {
+        console.error("Error in crop conversion:", error);
+        await message.reply("_*Error converting sticker*_");
+    }
 });
+
