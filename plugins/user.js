@@ -74,3 +74,39 @@ System({
 }, async (message) => {
     await message.client.sendMessage(message.chat, { delete: message.reply_message });
 });
+
+
+System({
+    pattern: "lastseen", 
+    fromMe: isPrivate,
+    desc: "To check ping", 
+    type: "user"
+},
+async (message, match) => {
+    let updateType, responseMessage;
+
+    switch (match) {
+        case "everyone":
+            updateType = "all";
+            responseMessage = "_*Last seen update to everyone*_";
+            break;
+        case "nobody":
+            updateType = "none";
+            responseMessage = "_*Last seen update to nobody*_";
+            break;
+        case "my contacts except":
+            updateType = "contact_blacklist";
+            responseMessage = "_*Last seen update to my contacts except*_";
+            break;
+        case "my contacts":
+            updateType = "contacts";
+            responseMessage = "_*Last seen update to my contacts*_";
+            break;
+        default:
+            await message.sendPoll(message.chat, "Choose one to update last seen", ["lastseen everyone", "lastseen nobody", "lastseen my contacts except", "lastseen my contacts"]);
+            return;
+    }
+
+    await message.updateLastSeen(updateType);
+    await message.reply(responseMessage);
+});
