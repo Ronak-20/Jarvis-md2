@@ -132,14 +132,14 @@ System({
     desc: "Installs External plugins",
     type: "user",
 }, async (message, match) => {
-    let match = match || message.reply_message.text;
-    if (!match) return message.send("_*Reply to a GitHub URL*_");
+    let url = match || (message.reply_message && message.reply_message.text);
+    if (!url) return message.send("_*Reply to a GitHub URL*_");
 
-    const matchUrl = await extractUrlFromMessage(match);
+    const matchUrl = await extractUrlFromMessage(url);
     if (isUrl(matchUrl)) {
         await sendPlugin(message, matchUrl);
     } else {
-        const pluginInfo = await findPlugin(match);
+        const pluginInfo = await findPlugin(url);
         await message.send(pluginInfo);
- }
+    }
 });
