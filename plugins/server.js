@@ -339,7 +339,7 @@ System({
 
 
 System({
-    pattern: "mod ",
+    pattern: "mode ",
     fromMe: true,
     type: "server",
     desc: "change work type",
@@ -349,15 +349,15 @@ async (message, match) => {
         return await message.sendPollMessage({ name: "Choose mod to change mod", values: [["private", "mod private"], ["public", "mod public"]], withPrefix: true, participates: [message.sender] });
    
 if (!match === "private" || !match === "public") 
-    return await message.sendPollMessage({ name: "Choose mod to change mod", values: [["private", "mod private"], ["public", "mod public"]], withPrefix: true, participates: [message.sender] });
+    return await message.sendPollMessage({ name: "Choose mod to change mode", values: [["private", "mod private"], ["public", "mod public"]], withPrefix: true, participates: [message.sender] });
     
 
     const key = "WORK_TYPE";
     const value = match;
     
     if (!key || !value)
-        return await message.sendPoll(message.chat, "", [`mod public`, `mod private`]);
-        
+        return await message.sendPollMessage({ name: "Choose mod to change mode", values: [["private", "mod private"], ["public", "mod public"]], withPrefix: true, participates: [message.sender] });
+    
     if (server !== "heroku" && server !== "koyeb") {
         return await message.reply("_*Mod cmd only works in Heroku or Koyeb*_");
     }
