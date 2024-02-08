@@ -12,8 +12,11 @@ Jarvis - Loki-Xer
 const fs = require('fs');
 const ff = require('fluent-ffmpeg');
 const {
+	Crop,
 	tiny,
+	Round,
 	toPTT,
+	Circle,
 	System,
 	sendPvt,
 	listall,
@@ -192,4 +195,43 @@ System({
         console.error('An error occurred:', e);
         return message.send("An unexpected error occurred.");
     }
+});
+
+System({
+    pattern: "round",
+    fromMe: isPrivate,
+    desc: "Changes photo to sticker",
+    type: "converter",
+}, async (message, text, msg, client) => {
+if (!(message.reply_message.sticker || message.reply_message.image)) {
+   return await message.reply("_*Reply to photo or sticker*_");
+	}
+   const buffer = await await Round(msg);
+   await client.sendMessage(msg.chat, {sticker: buffer}, {quoted: msg });
+});
+
+System({
+    pattern: "circle",
+    fromMe: isPrivate,
+    desc: "Changes photo to sticker",
+    type: "converter",
+}, async (message, text, msg, client) => {
+if (!(message.reply_message.sticker || message.reply_message.image)) {
+   return await message.reply("_*Reply to photo or sticker*_");
+	}
+   const buffer = await await Circle(msg);
+   await client.sendMessage(msg.chat, {sticker: buffer}, {quoted: msg });
+});
+
+System({
+    pattern: "crop",
+    fromMe: isPrivate,
+    desc: "Changes photo to sticker",
+    type: "converter",
+}, async (message, text, msg, client) => {
+if (!(message.reply_message.sticker || message.reply_message.image)) {
+   return await message.reply("_*Reply to photo or sticker*_");
+	}
+   const buffer = await await Crop(msg);
+   await client.sendMessage(msg.chat, {sticker: buffer}, {quoted: msg });
 });
