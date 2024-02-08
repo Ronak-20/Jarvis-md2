@@ -339,15 +339,16 @@ System({
 
 
 System({
-    pattern: "mod ",
+    pattern: "mode",
     fromMe: true,
     type: "server",
     desc: "change work type",
 },
 async (message, match) => {
-    if (!match)
-        return await message.sendPoll(message.chat, "Choose mod to change mod", [`mod public`, `mod private`]);
-    
+    if (!match) return await message.sendPoll(message.chat, "Choose mod to change mod", [`mod public`, `mod private`]);
+    if (!(match === "private" || match === "public")) {
+    return await message.sendPoll(message.chat, "Choose mod to change mod", [`mod public`, `mod private`]);
+    }
     const key = "WORK_TYPE";
     const value = match;
     
