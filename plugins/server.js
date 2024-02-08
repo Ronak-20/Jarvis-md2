@@ -339,16 +339,19 @@ System({
 
 
 System({
-    pattern: "mode",
+    pattern: "mod ",
     fromMe: true,
     type: "server",
     desc: "change work type",
 },
 async (message, match) => {
-    if (!match) return await message.sendPoll(message.chat, "Choose mod to change mod", [`mod public`, `mod private`]);
-    if (!(match === "private" || match === "public")) {
+    if (!match)
+        return await message.sendPoll(message.chat, "Choose mod to change mod", [`mod public`, `mod private`]);
+   
+if (!match === "private" || !match === "public") 
     return await message.sendPoll(message.chat, "Choose mod to change mod", [`mod public`, `mod private`]);
-    }
+    
+
     const key = "WORK_TYPE";
     const value = match;
     
@@ -374,8 +377,8 @@ async (message, match) => {
     } else if (server === "koyeb") {
         let check = await get_deployments();
         if (check === 'true')
-        await message.reply(`_*Work type change to ${value}*_`);
         return await message.reply('_Please wait..._\n_Currently 2 instances are running in Koyeb, wait to stop one of them._');
         let data = await change_env(`WORK_TYPE: ${match}`);
+        return await message.reply(`_*Work type change to ${value}*_`);
     }
 });
