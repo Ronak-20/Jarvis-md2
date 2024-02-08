@@ -79,7 +79,7 @@ System({
 System({
     pattern: "lastseen", 
     fromMe: isPrivate,
-    desc: "To check ping", 
+    desc: "To change lastseen", 
     type: "user"
 },
 async (message, match) => {
