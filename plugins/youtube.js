@@ -233,8 +233,9 @@ System({
 }, async (message) => {
   if (message.isBot) return;
   if (!message.reply_message.fromMe || !message.reply_message.text) return;
+  if (!message.body.includes('⬢')) return;
   let match = message.body.replace('⬢', '');
-  if (message.body.includes('1. ⬢')) {
+  if (message.body.includes('1')) {
     const ytAudio = await Ytsearch(match);
     const msg = await message.send(`_*Now playing : ${ytAudio.title} 🎶*_`);
     const data = config.AUDIO_DATA.split(';');
@@ -262,7 +263,7 @@ System({
         }
       }
     }, { quoted: msg });
-  } else if (message.body.includes('2. ⬢')) {
+  } else if (message.body.includes('2')) {
     const data = await Ytsearch(match);
     const q = await message.send(`_*Now playing : ${data.title} 🎶*_`);
     await message.send(
