@@ -126,7 +126,7 @@ System({
 });
 
 
-System({
+/*System({
     pattern: "plugin",
     fromMe: true,
     desc: "Installs External plugins",
@@ -142,4 +142,4 @@ System({
         const pluginInfo = await findPlugin(url);
         await message.send(pluginInfo);
     }
-});
+});*/
