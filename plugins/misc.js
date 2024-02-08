@@ -173,6 +173,7 @@ System({
 
 System({
     on: 'text',
+    fromMe: isPrivate,
     dontAddCommandList: true,
 },async (message) => {
     if (message.isBot || !message.reply_message.fromMe || !message.reply_message.text) return;
