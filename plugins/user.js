@@ -206,7 +206,7 @@ System({
             const { readreceipts, profile, status, online, last, groupadd, calladd } = await message.getSettings(message.user.id);
             const name = await message.getName(message.user.id);
             const cap = `*♺ My Privacy*\n\n*Name:* ${name}\n*Online:* ${online}\n*Profile:* ${profile}\n*Last Seen:* ${last}\n*Read Receipts:* ${readreceipts}\n*Group Add Settings:* ${groupadd}\n*Call Add Settings:* ${calladd}`;
-            await message.client.sendMessage(message.chat, { image: { url: await message.getPP(message.jid) }, caption: cap });
+            await message.client.sendMessage(message.chat, { image: { url: await message.getPP(message.user.id) }, caption: cap });
             return;
         default:
             await message.sendPollMessage({ name: "\nChoose one setting to continue\n", values: [{ displayText: "last seen privacy", id: "privacy lastseen" }, { displayText: "profile picture privacy", id: "privacy ppsettings" }, { displayText: "status privacy", id: "privacy statusPrivacy" }, { displayText: "Read Receipts privacy", id: "privacy ReadReceiptsprivacy" }, { displayText: "Groups Add privacy", id: "privacy GroupsAddprivacy" }, { displayText: "disappearing message settings", id: "privacy disappearing" }, { displayText: "Online privacy settings", id: "privacy Onlineprivacy" }, { displayText: "my settings", id: "privacy mydatasettings" }], withPrefix: true, participates: [message.sender] });
