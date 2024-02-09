@@ -56,6 +56,7 @@ System({
 	return await message.reply("_Profile Picture Updated_");
 });
 
+
 System({
 	pattern: "reboot",
 	fromMe: true,
@@ -74,7 +75,6 @@ System({
 }, async (message) => {
     await message.client.sendMessage(message.chat, { delete: message.reply_message });
 });
-
 
 System({
     pattern: "privacy",
@@ -102,7 +102,7 @@ System({
             responseMessage = "_*Last seen privacy updated to my contacts*_";
             break;
         case "lastseen":
-            await message.sendPollMessage({ name: "\nChoose one to update last seen privacy\n", values: [{"everyone", "privacy lastseenEveryone"}, {"nobody", "privacy lastseenNobody"}, {"my contacts except", "privacy lastseenMyContactsExcept"}, {"my contacts", "privacy lastseenMyContacts"}, {"Online privacy", "Onlineprivacy"}, {"home", "privacy"}], withPrefix: true, participates: [message.sender] });
+            await message.sendPollMessage({ name: "\nChoose one to update last seen privacy\n", values: [{ displayText: "everyone", id: "privacy lastseenEveryone" }, { displayText: "nobody", id: "privacy lastseenNobody" }, { displayText: "my contacts except", id: "privacy lastseenMyContactsExcept" }, { displayText: "my contacts", id: "privacy lastseenMyContacts" }, { displayText: "Online privacy", id: "Onlineprivacy" }, { displayText: "home", id: "privacy" }], withPrefix: true, participates: [message.sender] });
             return;
         case "ppsettingsEveryone":
             await message.updatePpSettings("all");
@@ -121,7 +121,7 @@ System({
             responseMessage = "_*Profile picture privacy updated to my contacts*_";
             break;
         case "ppsettings":
-            await message.sendPollMessage({ name: "\nChoose one to update profile picture privacy", values: [{"everyone", "privacy ppsettingsEveryone"}, {"nobody", "privacy ppsettingsNobody"}, {"my contacts except", "privacy ppsettingsContactsExcept"}, {"my contacts", "privacy ppsettingsContacts"}, {"home", "privacy"}], withPrefix: true, participates: [message.sender] });
+            await message.sendPollMessage({ name: "\nChoose one to update profile picture privacy", values: [{ displayText: "everyone", id: "privacy ppsettingsEveryone" }, { displayText: "nobody", id: "privacy ppsettingsNobody" }, { displayText: "my contacts except", id: "privacy ppsettingsContactsExcept" }, { displayText: "my contacts", id: "privacy ppsettingsContacts" }, { displayText: "home", id: "privacy" }], withPrefix: true, participates: [message.sender] });
             return;
         case "statusPrivacyEveryone":
             await message.updateStatusPrivacy("all");
@@ -140,7 +140,7 @@ System({
             responseMessage = "_*Status privacy updated to my contacts*_";
             break;
         case "statusPrivacy":
-            await message.sendPollMessage({ name: "Choose one to update status privacy\n", values: [{"everyone", "privacy statusPrivacyEveryone"}, {"nobody", "privacy statusPrivacyNobody"}, {"my contacts except", "privacy statusPrivacyMyContactsExcept"}, {"my contacts", "privacy statusPrivacyMyContacts"}, {"home", "privacy"}], withPrefix: true, participates: [message.sender] });
+            await message.sendPollMessage({ name: "Choose one to update status privacy\n", values: [{ displayText: "everyone", id: "privacy statusPrivacyEveryone" }, { displayText: "nobody", id: "privacy statusPrivacyNobody" }, { displayText: "my contacts except", id: "privacy statusPrivacyMyContactsExcept" }, { displayText: "my contacts", id: "privacy statusPrivacyMyContacts" }, { displayText: "home", id: "privacy" }], withPrefix: true, participates: [message.sender] });
             return;
         case "ReadReceiptsprivacyNobody":
             await message.updateReadReceipts("none");
@@ -151,7 +151,7 @@ System({
             responseMessage = "_*Read Receipts privacy updated to everyone*_";
             break;
         case "ReadReceiptsprivacy":
-            await message.sendPollMessage({ name: "Choose one to update Read Receipts privacy\n", values: [{"everyone", "privacy ReadReceiptsprivacyEveryone"}, {"nobody", "privacy ReadReceiptsprivacyNobody"}, {"home", "privacy"}], withPrefix: true, participates: [message.sender] });
+            await message.sendPollMessage({ name: "Choose one to update Read Receipts privacy\n", values: [{ displayText: "everyone", id: "privacy ReadReceiptsprivacyEveryone" }, { displayText: "nobody", id: "privacy ReadReceiptsprivacyNobody" }, { displayText: "home", id: "privacy" }], withPrefix: true, participates: [message.sender] });
             return;
         case "GroupsAddprivacyEveryone":
             await message.groupsAddingPrivacy("all");
@@ -170,7 +170,7 @@ System({
             responseMessage = "_*Groups Add privacy updated to my contacts*_";
             break;
         case "GroupsAddprivacy":
-            await message.sendPollMessage({ name: "\nChoose one to update Groups Add privacy\n", values: [{"everyone", "privacy GroupsAddprivacyEveryone"}, {"nobody", "privacy GroupsAddprivacyNobody"}, {"my contacts except", "privacy GroupsAddprivacyMyContactsExcept"}, {"my contacts", "privacy GroupsAddprivacyMyContacts"}, {"home", "privacy"}], withPrefix: true, participates: [message.sender] });
+            await message.sendPollMessage({ name: "\nChoose one to update Groups Add privacy\n", values: [{ displayText: "everyone", id: "privacy GroupsAddprivacyEveryone" }, { displayText: "nobody", id: "privacy GroupsAddprivacyNobody" }, { displayText: "my contacts except", id: "privacy GroupsAddprivacyMyContactsExcept" }, { displayText: "my contacts", id: "privacy GroupsAddprivacyMyContacts" }, { displayText: "home", id: "privacy" }], withPrefix: true, participates: [message.sender] });
             return;
         case "disappearingfirst":
             await message.updateDisappearingMsg("86400");
@@ -189,7 +189,7 @@ System({
             responseMessage = "_*Disappearing Mode updated to 90 days*_";
             break;
         case "disappearing":
-            await message.sendPollMessage({ name: "\nChoose one to update disappearing message privacy\n", values: [{"24 hour", "privacy disappearingfirst"}, {"7 days", "privacy disappearingtwos"}, {"90 days", "privacy disappearingnine"}, {"off", "privacy disappearingoff"}, {"home", "privacy"}], withPrefix: true, participates: [message.sender] });
+            await message.sendPollMessage({ name: "\nChoose one to update disappearing message privacy\n", values: [{ displayText: "24 hour", id: "privacy disappearingfirst" }, { displayText: "7 days", id: "privacy disappearingtwos" }, { displayText: "90 days", id: "privacy disappearingnine" }, { displayText: "off", id: "privacy disappearingoff" }, { displayText: "home", id: "privacy" }], withPrefix: true, participates: [message.sender] });
             return;
         case "Onlineprivacyall":
             await message.onlineLastSeen("all");
@@ -200,7 +200,7 @@ System({
             responseMessage = "_*Online privacy updated to same as last seen*_";
             break;
         case "Onlineprivacy":
-            await message.sendPollMessage({ name: "\nChoose one to update Online privacy settings\n", values: [{"everyone", "privacy Onlineprivacyall"}, {"same as last seen", "privacy OnlineprivacyMatchas"}, {"home", "privacy"}], withPrefix: true, participates: [message.sender] });
+            await message.sendPollMessage({ name: "\nChoose one to update Online privacy settings\n", values: [{ displayText: "everyone", id: "privacy Onlineprivacyall" }, { displayText: "same as last seen", id: "privacy OnlineprivacyMatchas" }, { displayText: "home", id: "privacy" }], withPrefix: true, participates: [message.sender] });
             return;
         case "mydatasettings":
             const { readreceipts, profile, status, online, last, groupadd, calladd } = await message.getSettings(message.user.id);
@@ -209,7 +209,7 @@ System({
             await message.client.sendMessage(message.chat, { image: { url: await message.getPP(message.jid) }, caption: cap });
             return;
         default:
-            await message.sendPollMessage({ name: "\nChoose one setting to continue\n", values: [{"last seen privacy", "privacy lastseen"}, {"profile picture privacy", "privacy ppsettings"}, {"status privacy", "privacy statusPrivacy"}, {"Read Receipts privacy", "privacy ReadReceiptsprivacy"}, {"Groups Add privacy", "privacy GroupsAddprivacy"}, {"disappearing message settings", "privacy disappearing"}, {"Online privacy settings", "privacy Onlineprivacy"}, {"my settings", "privacy mydatasettings"}], withPrefix: true, participates: [message.sender] });
+            await message.sendPollMessage({ name: "\nChoose one setting to continue\n", values: [{ displayText: "last seen privacy", id: "privacy lastseen" }, { displayText: "profile picture privacy", id: "privacy ppsettings" }, { displayText: "status privacy", id: "privacy statusPrivacy" }, { displayText: "Read Receipts privacy", id: "privacy ReadReceiptsprivacy" }, { displayText: "Groups Add privacy", id: "privacy GroupsAddprivacy" }, { displayText: "disappearing message settings", id: "privacy disappearing" }, { displayText: "Online privacy settings", id: "privacy Onlineprivacy" }, { displayText: "my settings", id: "privacy mydatasettings" }], withPrefix: true, participates: [message.sender] });
             return;
     }
     
