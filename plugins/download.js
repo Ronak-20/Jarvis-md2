@@ -191,8 +191,9 @@ System({
 
         for (const chunk of optionChunks) {
             await message.sendPollMessage({ 
-                name: "\nInstagram Story Downloader ⬇️*\n", 
+                name: "\n*Instagram Story Downloader ⬇️*\n", 
                 values: chunk, 
+		onlyOnce: false,
                 id: message.key.id, 
                 withPrefix: true, 
                 participates: [message.sender] 
