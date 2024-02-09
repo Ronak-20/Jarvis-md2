@@ -209,7 +209,7 @@ System({
             await message.client.sendMessage(message.chat, { image: { url: await message.getPP(message.jid) }, caption: cap });
             return;
         default:
-            await message.sendPollMessage({ name: "\nChoose one setting to continue\n", values: [["last seen privacy", "privacy lastseen"], ["profile picture privacy", "privacy ppsettings"], ["status privacy", "privacy statusPrivacy"], ["Read Receipts privacy", "privacy ReadReceiptsprivacy"], ["Groups Add privacy", "privacy GroupsAddprivacy"], ["disappearing message settings", "privacy disappearing"], ["Online privacy settings", "privacy Onlineprivacy"], ["my settings", "privacy mydatasettings"]], withPrefix: true, participates: [message.sender] });
+            await message.sendPollMessage({ name: "\nChoose one setting to continue\n", values: [{"last seen privacy", "privacy lastseen"}, {"profile picture privacy", "privacy ppsettings"}, {"status privacy", "privacy statusPrivacy"}, {"Read Receipts privacy", "privacy ReadReceiptsprivacy"}, {"Groups Add privacy", "privacy GroupsAddprivacy"}, {"disappearing message settings", "privacy disappearing"}, {"Online privacy settings", "privacy Onlineprivacy"}, {"my settings", "privacy mydatasettings"}], withPrefix: true, participates: [message.sender] });
             return;
     }
     
