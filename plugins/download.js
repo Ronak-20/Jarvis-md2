@@ -182,7 +182,7 @@ System({
             });
         });
 
-        if (options.length === 1) return await message.sendFromUrl(result[0].url);
+        if (options.length === 1) return await message.sendFromUrl(result[0].download_link);
 
         const optionChunks = [];
         while (options.length > 0) {
