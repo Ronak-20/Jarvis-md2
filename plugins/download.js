@@ -16,6 +16,7 @@ const {
   sendInsta,
   axios,
   getJson,
+  isInstaUrl,
   wait,
   Pinterestdl,
   sendTiktok,
@@ -149,6 +150,53 @@ async (message, match) => {
             }
         } catch (error) {
             console.error("Error downloading:", error);
+        }
+    }
+});
+
+
+System({
+    pattern: "story",
+    fromMe: isPrivate,
+    desc: "To download insta story",
+    type: "download"
+}, async (message, match) => {
+    match = match || message.reply_message.text;
+    const data = await extractUrlFromMessage(match);
+    if (!match) return message.reply("_*Provide an Instagram story URL*_");
+    if (!data) return message.reply("_*Provide a valid Instagram story URL*_");
+    if (match.startsWith("dl-url")) {
+        await message.sendFromUrl(data);
+    } else {
+        if (!isInstaUrl(data)) return message.reply("_*Provide a valid Instagram story URL*_");
+        const result = await getJson(await IronMan(`ironman/insta?url=${data}`));
+        let options = [];
+        let n = 1;
+
+        if (!result[0]) return await message.send("Not Found");
+
+        result.forEach(u => {
+            options.push({
+                displayText: `${n++}/${result.length}`,
+                id: `story dl-url  ${u.download_link}`
+            });
+        });
+
+        if (options.length === 1) return await message.sendFromUrl(result[0].url);
+
+        const optionChunks = [];
+        while (options.length > 0) {
+            optionChunks.push(options.splice(0, 10));
+        }
+
+        for (const chunk of optionChunks) {
+            await message.sendPollMessage({ 
+                name: "\nInstagram Story Downloader ⬇️*\n", 
+                values: chunk, 
+                id: message.key.id, 
+                withPrefix: true, 
+                participates: [message.sender] 
+            });
         }
     }
 });
