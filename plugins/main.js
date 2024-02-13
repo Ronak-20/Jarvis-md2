@@ -104,7 +104,8 @@ System({
 	desc: "remove external plugins",
 	type: "user",
 }, async (message, match) => {
-	await Remove(message, match);
+	const remove await Remove(message, match);
+	await message.send(remove);
 });
 
 System({
